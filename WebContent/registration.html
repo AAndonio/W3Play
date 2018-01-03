@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> W3Play</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/pageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="css/registrationStyle.css" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">  
+</head>
+
+<body>
+  <div id="page">
+   <header>
+      <div class="header-top">
+
+        <a href="homepage"><img class="logo" src="img/logo2.png" alt="logo"></a>
+
+        <div class="search-form">
+            <form id="search-form" action="searchServlet" onsubmit="return validateSearch();"> 
+            <input id="search-form-field" name="prodottoCercato" type="search" value="" placeholder="Cerca prodotto..." />
+            <button id="search-button" type="submit"><img src="img/search-button.png"> </button>
+            <input type="hidden" name="action" value="search"/>
+          </form>
+        </div>
+
+        <div class="header-top-buttons">
+          <div class="header-top-button">
+            <img src="img/login.svg"><a id="login-link" href="login"> Login</a>
+          </div>
+           
+          <div class="header-top-button">
+        	<img src="img/cart2.png">
+            <a href="cartServlet">Carrello</a>
+          </div>
+     
+        </div>
+      </div>
+    </header>
+
+    <div class="navbar-mobile">
+      <div id="menu-image-mobile" onclick="showMenu()">
+        <img src="img/menu.png" >
+      </div>
+        <form id="search-form-mobile" action="searchServlet" onsubmit="return validateSearch();">
+          <input id="search-form-field-mobile" name="prodottoCercato" type="search" placeholder="Cerca prodotto...">
+          <input type="submit" style="position: absolute; left: -9999px"/>
+           <input type="hidden" name="action" value="search"/>
+        </form>
+      <div id="navbar-mobile-menu">
+        <ul>
+          <li><a href="login">Login</a></li>
+          <li><a href="cartServlet">Carrello</a></li>
+          <li><a href="searchServlet?ricercaMenu=si&produttore=Sony&piattaforma=0&nome=PS">Sony</a></li>
+          <li><a href="searchServlet?ricercaMenu=si&produttore=Microsoft&piattaforma=0&nome=XBOX">Microsoft</a></li>
+          <li><a href="searchServlet?ricercaMenu=si&produttore=Nintendo&piattaforma=0&nome=Nintendo">Nintendo</a></li>
+          <li><a href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=PC&nome=PS4">PC</a></li>
+        </ul>
+      </div>
+ 
+    </div>
+ 
+    <nav>
+      <ul class="navbar-nav nav-font">
+     
+        <li class="dropdown nav-link"><a class="nav-link" href="searchServlet?ricercaMenu=si&produttore=Sony&piattaforma=0&nome=PS">Sony</a>
+          <div class = "dropdown-menu">
+            <div class="nav-dropdown-menu">
+              <h6>Console</h6>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=PS4">PS4</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=PS3">PS3</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=PSVita">PSVita</a><br>
+            </div>
+            <div class="nav-dropdown-menu">
+              <h6>Videogiochi</h6>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=PS4&nome=0">Giochi PS4</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=PS3&nome=0">Giochi PS3</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=PSVita&nome=0">Giochi PSVita</a>
+            </div>
+         </div>
+     </li>
+        <li class="dropdown"><a class="nav-link" href="searchServlet?ricercaMenu=si&produttore=Microsoft&piattaforma=0&nome=XBOX">Microsoft</a>
+          <div class = "dropdown-menu">
+            <div class="nav-dropdown-menu">
+              <h6>Console</h6>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=XBOX ONE">Xbox One</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=XBOX 360">Xbox 360</a><br>
+            </div>
+            <div class="nav-dropdown-menu">
+              <h6>Videogiochi</h6>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=XBOX ONE&nome=0">Giochi Xbox One</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=XBOX 360&nome=0">Giochi Xbox 360</a>
+            </div>
+         </div>
+        </li>
+        <li class="dropdown"><a class="nav-link" href="searchServlet?ricercaMenu=si&produttore=Nintendo&piattaforma=0&nome=Nintendo">Nintendo</a>
+            <div class = "dropdown-menu">
+            <div class="nav-dropdown-menu">
+              <h6>Console</h6>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=Nintendo Switch">Switch</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=Nintendo Wii U">Wii U</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=0&nome=Nintendo 3DS">3DS</a><br>
+            </div>
+            <div class="nav-dropdown-menu">
+              <h6>Videogiochi</h6>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=Switch&nome=0">Giochi Switch</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=Wii U&nome=0">Giochi Wii U</a><br>
+              <a class = "nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=3DS&nome=0">Giochi 3DS</a>
+            </div>
+         </div>
+        </li>
+        <li class="dropdown"><a class="nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=PC&nome=0">PC Games</a>   
+        </li>
+      </ul>
+     
+ 
+    </nav>
+
+     <section id="main-content">
+         <div id="registration-block">
+        
+            <form name="registrazione" action = "regServlet" id="registration-form" method="post" >
+			
+                <h2>Crea il tuo account W3PLAY</h2>
+                <div class="label-text"><label for="user-name">Nome*</label></div>
+                <input id="user-name" class="field" type="text" name="user-name"><br>
+                <div class="label-text"><label for="user-surname" >Cognome*</label></div>
+                <input id="user-surname" class="field" type="text" name="user-surname"><br>
+                <div class="label-text"><label for="user-email">Email*</label></div>
+                <input id="user-email" class="field" type="text" name="user-email" ><span id="disponibilitaEmail"></span><br>
+                <div class="label-text"><label for="password">Password*</label></div>
+                <input id="password" class="field" type="password" name="password"><br>
+                <div class="label-text"><label for="password2">Ripeti password*</label></div>
+                <input id="password2" class="field" type="password" name="password2"><br>
+				<div class="label-text"><label for="user-via">Via*</label></div>
+                <input id="user-via" class="field" type="text" name="user-via"><br>
+				<div class="label-text"><label for="user-civico">Civico*</label></div>
+                <input id="user-civico" class="field" type="text" name="user-civico"><br>
+				<div class="label-text"><label for="user-cap">CAP*</label></div>
+                <input id="user-cap" class="field" type="text" name="user-cap"><br>
+				<div class="label-text"><label for="user-citta">Citta'*</label></div>
+                <input id="user-citta" class="field" type="text" name="user-citta"><br>
+                <input id="agreement" type="checkbox" onchange="return validate();" name="agreement" required> <label for="agreement">Accetto le condizioni</label><br>
+                <input type="submit" id="registration-button" value="Registrati">
+                <input type="hidden" name="action" value="registration"/>
+			 </form>
+
+         </div>
+     </section>
+
+    <footer>
+        <div id="useful-links" class="footer-elements">
+          <h4> Link utili </h4>
+          <a href="#">F.A.Q.</a><br>
+          <a href="#">Termini e condizioni</a><br>
+          <a href="#">Contattaci</a><br>
+        </div>
+        <div id="payments" class="footer-elements">
+          <h4> Paga con </h4>
+          <img class ="footer-img" src="img/payments.png">
+        </div>
+        <div id="shippings" class="footer-elements">
+          <h4> Spediamo con </h4>
+          <img class ="footer-img" src="img/bartolini-logo.png">
+        </div>
+        <div id = "contact-info" class="footer-elements">
+          <h3> W3Play Corp. </h3>
+          <p> Via delle stelle, 99</p>
+          <p>84121, Salerno (SA) </p>
+          <p> w3play@gmail.com </p>
+        </div>
+      </footer>
+    </div>
+  <script>
+  function showMenu() {
+    if(document.getElementById("navbar-mobile-menu").style.display === "none"){
+      document.getElementById("navbar-mobile-menu").style.display = "block";
+    }
+    else
+      document.getElementById("navbar-mobile-menu").style.display = "none";
+  }
+  </script>
+  <script src="script/jquery-3.2.1.min.js"></script>
+  <script src="script/validationscript.js"></script>
+  <script >
+  
+	
+  function validate(){
+	  $( document ).ready(function() {
+		    
+		    
+	  if(validateForm()){
+			return controllaEmailAjax();
+	  }else{
+		  return false;
+	  }
+	  });
+  }
+  
+  function controllaEmailAjax(){
+	  var email = document.getElementById("user-email").value;
+		$.ajax({
+    		type: "get",
+      		url: "/ProgettoPW/EmailControlServlet",
+      		data: "email=" + email,
+            async: false,
+      		success: function(msg)
+      				{
+      			
+					      if(msg == "true"){
+					        $("#disponibilitaEmail").html("Email non disponibile. Inserisci nuova email e riaccetta i termini");
+					        $("#registration-button").css("display","none");
+					        $("#agreement").prop("checked", false);
+					        
+					       
+					        return true;
+					      }
+					      else{
+					        $("#disponibilitaEmail").html("Email disponibile");
+					        $("#registration-button").css("display","block");
+					     
+					        return false;
+					      }
+     			 	},
+		    error: function(msg)
+		    {
+		       alert("Server occupato.");
+		    }
+});
+	  
+  }
+
+  </script>
+  <script type="text/javascript">
+$(document).ready(function() {
+
+	  $('#search-form-field-mobile').keydown(function(event) {
+	    // enter has keyCode = 13, change it if you want to use another button
+	    if (event.keyCode == 13) {
+	      this.form.submit();
+	      return false;
+	    }
+	  });
+
+	});</script>
+
+  </body>
+  
+  </html>
