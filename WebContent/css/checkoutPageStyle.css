@@ -1,0 +1,97 @@
+#recap-container{
+    width: 28em;
+    margin-left: auto;
+    margin-right: auto;
+    align-content: center;
+    background-color: whitesmoke;
+}
+
+#recap-container ol{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.checkout-step{
+    margin: 2em auto 2em auto;
+    padding: 1em;
+    vertical-align: top;
+    text-align: center;
+}
+
+.button-block{
+    display: inline-block;
+}
+
+.step-content{
+    margin: 0;
+    padding: 0;
+
+    list-style-type: none;
+
+    padding: 0 1em 1em 1em;
+}
+
+.radio-button-default{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.alternative-label{
+    font-weight: bold;
+}
+
+.default-choice{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#payment-form{
+    display: none;
+}
+
+#payment-alternative:checked ~ #payment-form{
+    display: block;
+}
+
+.table-row{
+    padding: 0.5em;
+    text-align: center;
+}
+
+.field-form{
+
+    margin: 0  auto 0 3em;
+    width: 10em;
+    float:right;
+}
+
+.step-content li{
+    margin: 0.5em;
+}
+
+#final-checkout{
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+
+    padding-top: 0.25em;
+
+    margin-bottom: 2em;
+
+    background-color:whitesmoke;
+    text-align: center;
+}
+
+#final-checkout-button{
+    width:100%;
+    border: none;
+    padding: 1em 3em 1em 3em;
+
+    background-color: #55d6aa;
+    color: white;
+    text-transform: uppercase;
+
+    border: none;
+
+}
