@@ -1,0 +1,151 @@
+#center h3 {
+	font-size: 5em;
+}
+	.product>img {
+	    vertical-align: middle;
+	    text-align:center;
+	    align-content:center;
+	    width: 50%;
+	    padding: 1.5em 0.25em 1.25em 0.25em;
+	}
+	
+	#products{
+	    vertical-align: top;
+	    padding-top: 1em;
+	    padding-left: 1em;
+	   	font-size: 4em;
+	   	text-align:center;
+	}
+	
+	
+	
+@media screen and (min-width:768px){
+	#main-content{
+	    font-size: 100%;
+	    margin: 1.5em 2em 1.5em 2em;
+	}
+	
+	#search-filters{
+	    display: inline-block;
+	    padding: 0;
+	    width: 12%;
+	}
+	
+	.filter{
+	    margin: 0;
+	    padding: 0;
+	    list-style-type: none;
+	    padding: 0.5em 0.5em 0.5em 0.5em;
+	    
+	}
+	
+	.filter>li>form>input{
+	    width: 2em;
+	}
+	
+	#center{
+	    
+	    display: inline-block;
+	    vertical-align: top;
+	    width:85%;
+	    margin-left: 2em;
+	}
+	
+	#center h3 {
+	font-size: 1em;
+	}
+	
+	#sort-bar{
+	    display: inline-block;
+	    vertical-align: top;
+	    height: 15%;
+	    width: 100%;
+	}
+	
+	#products{
+	    vertical-align: top;
+	    padding-top: 1em;
+	    padding-left: 1em;
+	    font-size: 1em;
+	   	text-align:left;
+	}
+	
+	.product>img {
+	    vertical-align: middle;
+	    width: 8em;
+	    height: 15%;
+	    padding: 1.5em 0.25em 1.25em 0.25em;
+	}
+	
+	.product-header{
+	    display: inline-block;
+	    font-size: 0.90em;
+	    margin: 0;
+	    width: 60em;
+	    vertical-align: middle;
+	}
+	
+	.product{
+	    border-bottom: 2px solid whitesmoke;
+	    width: 100%;
+	    
+	}
+	
+	.product>img {
+		 width: 6.5em;
+	    height: 8em;
+	}
+	
+	.product-platform{
+	    font-weight: bold;
+	}
+	
+	.product-title{
+	    display: inline-block;
+	    margin: 0.3em 0;
+	    text-decoration: none;
+	    color: black;        
+	    font-size: 1.25em;
+	    width: 25%;
+	}
+	
+	.product-price{
+		display: inline-block;
+	    font-size: 1.40em;
+	    margin-left: 10em;
+	    width: 0.05em;
+	}
+	
+	.product-addToCart{
+		width: 25%;
+	    vertical-align: middle;
+	    font-size: 0.90em;
+	    background-color: #55d6aa;
+	    padding: 1em 1em 1em 1em;
+	    margin-left: 20em;
+		margin-right: 0;
+	    border-radius: 0.6em;;
+	    text-decoration: none;
+	    color: white;
+	    text-transform: uppercase;
+	}
+	
+	.product-addToCart:focus{
+	    background-color: #4BB793;
+	}
+}
+
+
+@media screen and (max-width:1700px){
+
+    #page{
+        width: 100%;
+    }
+
+    #main-content{
+        font-size: 1.2vw;
+    }
+    
+}
+
+
