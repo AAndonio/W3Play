@@ -1,0 +1,72 @@
+﻿insert into Utente values ('peppe.dello.stretto97@gmail.com','Giuseppe','Dello Stretto','giuseppe','Via Sacco e Vanzetti','9','81020','Caserta');
+insert into Utente values ('ndonio96@gmail.com','Antonio','Vivone','antonio','Via Anguria','45','84022','Campagna');
+insert into Utente values ('ggarreffa@gmail.com','Giuseppe','Garreffa','giuseppeg','Via Napoli','12','81020','Caserta');
+insert into Utente values ('gg@gmail.com','Giuseppe','Garreffa','giuseppe','Via Napoli','12','81020','Caserta');
+
+
+insert into amministratore values ('ndonio96@gmail.com','Backoffice');
+
+
+insert into CartaDiCredito values ('1111 2222 3333 4444','Giuseppe Dello Stretto','2020-06-20','123');
+insert into CartaDiCredito values ('1234 2222 3333 4444','Antonio Vivone','2025-04-15','456');
+insert into CartaDiCredito values ('1111 5678 3333 4444','Giuseppe Garreffa','2019-07-22','789');
+insert into CartaDiCredito values ('1111 2222 1234 4444','Marco Amorosi','2024-12-25','012');
+insert into CartaDiCredito values ('1111 2222 3333 5678','Daniele Palmieri','2022-11-12','345');
+insert into CartaDiCredito values ('1234 5678 9012 3456','Alfonso Di Pace','2027-02-21','678');
+
+
+
+insert into Associare values ('peppe.dello.stretto97@gmail.com','1111 2222 3333 4444');
+insert into Associare values ('peppe.dello.stretto97@gmail.com','1111 2222 1234 4444');
+insert into Associare values ('ndonio96@gmail.com','1234 2222 3333 4444');
+insert into Associare values ('ndonio96@gmail.com','1111 2222 1234 4444');
+insert into Associare values ('ggarreffa@gmail.com','1111 5678 3333 4444');
+insert into Associare values ('ggarreffa@gmail.com','1111 2222 1234 4444');
+
+
+
+insert into Carrello (QtaProdotti, PrezzoTotale, Utente) values ('0','0','peppe.dello.stretto97@gmail.com');
+insert into Carrello (QtaProdotti, PrezzoTotale, Utente) values ('0','0','ndonio96@gmail.com');
+insert into Carrello (QtaProdotti, PrezzoTotale, Utente) values ('0','0','ggarreffa@gmail.com');
+insert into Carrello (QtaProdotti, PrezzoTotale, Utente) values ('0','0','gg@gmail.com');
+
+
+
+insert into Ordine values ('1','0','2017-08-29 15:23:12','1111 2222 3333 4444','peppe.dello.stretto97@gmail.com');
+insert into Ordine values ('2','0','2017-07-22 12:21:10','1234 2222 3333 4444','ndonio96@gmail.com');
+insert into Ordine values ('3','0','2017-08-13 21:02:11','1111 5678 3333 4444','ggarreffa@gmail.com');
+
+
+
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Uncharted: Leredità perduta','Sony Interactive Entertainment','PS4','Action/Adventure','descrizione uncharted','copertine/uncharted.jpg','40.98','10','2017-08-29','4','https://www.youtube.com/embed/DZaxBHmXpIo');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Crash bandicoot N. Sane Trilogy','Activision','PS4','Action/Adventure','descrizione crash','copertine/Crash bandicootPS4.jpg','40.78','12','2017-06-30','10','https://www.youtube.com/embed/4Boamnaj2Y8');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Grand Theft Auto IV','Rockstar Games','PS3','Action/adventure','descrizione gtaIV','copertine/GrandTheftAutoIV.jpg','19.90','24','2012-08-29','22','https://www.youtube.com/embed/oAAFbj6teIo');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Persona 5','Deep Silver','PS3','RPG','descrizione persona 5','copertine/Persona5PS3.jpg','44.98','14','2017-07-20','3','https://www.youtube.com/embed/I5dh-csRaeE');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Odin Sphere','Atlus','PSVita','Action/adventure','descrizione odin sphere','copertine/OdinSpherePSVita.jpg','27.98','30','2017-02-02','4','https://www.youtube.com/embed/QypWX5eaM9I');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('One Piece: Burning Blood','Bandai Namco Games','PSVita','Espansione','descrizione one piece','copertine/OnePieceBurningBloodPSVita.jpg','14.99','100','2017-05-29','32','https://www.youtube.com/embed/DDg7yNByxWs');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Resident Evil Revelation','Capcom','XBOX ONE','Action/adventure','descrizione RE','copertine/Revelations.jpg','27.98','80','2010-11-29','5','https://www.youtube.com/embed/pgSF2aY9MtM');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('NBA 2K18','2K','XBOX 360','Sport','descrizione nba','copertine/NBA2K18.jpg','60.78','18','2015-09-17','7','https://www.youtube.com/embed/dQEOSCLnPL8');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('LEGO Worlds','Warner Bros. Interactive','Nintendo Switch','Action/Adventure','Descrizione lego','copertine/LEGOWorldsSwitch.jpg','50.99','55','2016-12-29','22','https://www.youtube.com/embed/frRfo4sKxtk');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Bomberman 64','Nintendo','Nintendo WiiU','Gioco','descrizione bomberman','copertine/bomberman.jpg','10.99','22','2017-01-29','17','https://www.youtube.com/embed/LEJS2d7NJm4');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Monster hunter Stories','Capcom','Nintendo 3DS','RPG','descrizione monster','copertine/MonsterHunterStories3DS.jpg','40.98','10','2017-03-05','21','https://www.youtube.com/embed/r46Jbq-ZNok');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('PS4 Slim 500GB + PSN Card 10','Sony Interactive Entertainment','','console','descrizione ps4','copertine/PS4 Slim 500GB.jpg','299.00','19','2017-07-19','50','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('PS3 Ultra Slim 500GB Nera','Sony Interactive Entertainment','','console','descrizione ps3','copertine/PS3 Ultra Slim 500GB Nera.jpg','199.00','7','2011-02-10','8','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('PSVita Wi-Fi','Sony Interactive Entertainment','','console','descrizione psvita','copertine/PSVita Wi-Fi.jpg','199.98','10','2016-08-25','9','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Xbox One S Bianca 1TB','Microsoft','','console','descrizione xbox','copertine/Xbox 360 250Gb.jpg','259.99','54','2016-08-29','11','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Xbox 360 250Gb','Microsoft','','console','descrizione xbox','copertine/Xbox 360 250Gb.jpg','79.99','10','2017-05-19','30','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Nintendo Switch','Nintendo','','console','descrizione switch','copertine/Nintendo Switch.jpg','329.98','32','2014-08-20','5','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Nintendo Wii U Bianca','Nintendo','','console','descrizione wiiu','copertine/Nintendo Wii U Bianca.jpeg' ,'149.99','8','2014-03-29','8','');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('New Nintendo 3DS XL Nero/Arancione','Nintendo','','console','descrizione 3ds','copertine/New Nintendo 3DS XL Nero_Arancione.jpg','199.00','2','2012-12-29','12',''); 
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Dishonored: La morte dell Esterno ','Bethesda Softworks','PC','Action/adventure','descrizione dishonored','copertine/dishonored.jpg','30.98','15','2015-11-29','18','https://www.youtube.com/embed/Rm4s8UAsC3A');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('Fallout 4 - Game Of The Year Edition','Bethesda Softworks','PC','Action/adventure','descrizione fallout','copertine/fallout.jpg','40.98','18','2010-10-20','19','https://www.youtube.com/embed/Rs1CrdSuA6k');
+insert into Prodotto (Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) values ('World Of Warcraft: Legion','Blizzard','PC','RPG','descrizione wow','copertine/legion.jpg','34.98','80','2012-10-10','21','https://www.youtube.com/embed/lccuX8UQssQ');
+
+insert into Inserire values ('2','22','1');
+insert into Inserire values ('2','10','1');
+insert into Inserire values ('2','12','2');
+insert into Inserire values ('2','14','4');
+insert into Inserire values ('1','2','2');
+insert into Inserire values ('1','4','4');
+insert into Inserire values ('1','9','2');
+insert into Inserire values ('1','18','4');
+
