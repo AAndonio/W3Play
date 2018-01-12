@@ -1,0 +1,251 @@
+
+#user-site-position{
+	    display:none;
+	}
+	
+	#product-platform{
+	 text-align: center;
+	font-size: 3em;
+	}
+
+#product-title{
+	    margin-top: 0;
+	    text-align: center;
+	    font-size: 5em;
+	 
+	}
+	
+	#product{
+	align-content: center;
+	margin-right: auto;
+	    margin-left: auto;}
+
+#product-image{
+		
+	    display: inline-block;
+	    margin: 0;
+	    padding: 0;
+	   width: 60%;
+	    margin-right: auto;
+	    margin-left: 20%;
+	    align-content:center;
+}
+
+	#buying-options{
+	background-color: whitesmoke;
+	text-align: center;
+	width: 100%;
+	 margin-top: 3em;
+	 margin-bottom: 3em;
+	   font-size: 5em;
+	}
+	
+	.product-addToCart{
+	    font-size: 0.5em;
+	   
+	    background-color: #55d6aa;
+	    padding: 1em 1em 1em 1em;
+	  
+	    border-radius: 0.6em;
+	    text-decoration: none;
+	    color: white;
+	    text-transform: uppercase;
+	}
+	#product-information{
+	display:none;
+	}
+	
+	#product-description {
+		font-size: 3em;
+	   
+	   
+	    text-align: center;
+	}
+	
+	#product-edit{
+	display: inline-block;
+	width: 30%;
+    vertical-align: middle;
+    font-size: 0.90em;
+    background-color: #55d6aa;
+    padding: 1em 1em 1em 1em;
+   
+	margin-left: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+	#product-remove{
+	display: inline-block;
+	width: 30%;
+    vertical-align: middle;
+    font-size: 0.90em;
+    background-color: #55d6aa;
+    padding: 1em 1em 1em 1em;
+   
+	margin-left: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+	
+	#product-trailer{
+	    width: 90%;
+	    height: 100vw;
+	    margin-left: 4em;
+	}
+	
+	#product-trailer h2{
+	   text-align: center;
+	   font-size: 4em;
+	}
+
+@media screen and (min-width:768px){
+	#user-site-position{
+		display: inline-block;
+	    width: 100%;
+	    height: 10%;
+	    margin-left: 4em;
+	}
+	
+	#product{
+	    width: 100%;  
+	}
+	
+	#product-header{
+	    margin: 2em 4em 2em 4em;
+	}
+	
+	#product-platform{
+	    margin-bottom: 0;
+	    text-align: left;
+	font-size: 1.1em;
+	}
+	
+	#product-title{
+	    margin-top: 0;
+	    text-align: left;
+	    font-size: 2.3em;
+	}
+	
+	#product-image{
+	    display: inline-block;
+	    width: 30%;
+	    height: 30%;
+	    margin: 0.2em 1.5em 2em 4em;
+	   
+	}
+	
+	#aside-product-image{
+	    display: inline-block;
+	    vertical-align: top;
+	    width: 40%;
+	    border: 1px solid whitesmoke;
+	    margin:3em 2em 0 7em;
+	}
+	
+	#buying-options{
+	    width: 100%;
+	    display: inline-block;
+	    vertical-align: top;
+	    text-align: left;
+	    margin-top: 0;
+	 	margin-bottom: 0;
+	   font-size: 1em;
+	}
+	
+	#product-information{
+		display:inline-block;
+	    width: 80%;
+	    padding: 2em 1.5em 2em 1.5em;
+	}
+	
+	.information-type{
+	    font-weight: bold
+	}
+	
+	#buying-form{
+	    background-color: gainsboro;
+	    padding: 2em 1.5em 2em 1.5em;
+	}
+	
+	#label-quantity{
+	    font-weight: bold;
+	}
+	
+	#quantity-input{
+	width: 2em;
+	}
+	
+	#product-price{
+	     font-size: 2em;
+	     margin: 1em 0 0.5em 0.5em;
+	}
+	
+	#availability{
+	    margin-bottom: 1em; 
+	    margin-left: 0.5em;
+	    font-weight: bold;
+	    color: #008a00;
+	
+	}
+	
+	.product-addToCart{
+	    font-size: 0.90em;
+	    width: 50%;
+	    background-color: #55d6aa;
+	    padding: 1em 1em 1em 1em;
+	    position:relative;
+	    left:8em;
+	    border-radius: 0.6em;
+	    text-decoration: none;
+	    color: white;
+	    text-transform: uppercase;
+	}
+	
+	
+	
+	#product-description {
+	    width: 70%;
+	    font-size: 1em;
+	    margin-left: 4em;
+	    text-align: justify;
+	}
+	
+	#product-description p {
+	    font-size: 1.10em;
+	}
+	
+	#product-trailer{
+	    width: 50%;
+	    height: 30em;
+	    margin-left: 4em;
+	}
+
+#product-edit{
+	display: inline-block;
+	width: 30%;
+    vertical-align: middle;
+    font-size: 0.90em;
+    background-color: #55d6aa;
+    padding: 1em 1em 1em 1em;
+   
+	margin-left: 1em;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+	
+	#product-trailer h2{
+	   text-align: left;
+	   font-size: 1.2em;
+	}
+}
+
+
