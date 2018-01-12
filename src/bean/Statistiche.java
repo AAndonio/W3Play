@@ -4,6 +4,11 @@ import java.sql.SQLException;
 
 import model.StatisticheDAO;
 
+/**
+ * Statistiche di sistema
+ * @author Luca
+ *
+ */
 public class Statistiche {
 	
 	private int numProdottiCatalogo;

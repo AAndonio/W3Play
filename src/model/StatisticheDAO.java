@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import bean.Statistiche;
 import utils.DBConnection;
 
+/**
+ * Classe dao per il calcolo delle statistiche dal database
+ * @author Luca
+ *
+ */
 public class StatisticheDAO {
 
 	public StatisticheDAO() {}

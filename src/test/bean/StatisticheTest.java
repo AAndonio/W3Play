@@ -5,6 +5,9 @@ import org.junit.Test;
 import bean.Statistiche;
 import util.IO;
 
+/*
+ * classe di test per le statistiche del sistema
+ */
 public class StatisticheTest {
 
 	@Test
