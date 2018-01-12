@@ -33,13 +33,16 @@ public class Autenticazione extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		String action = request.getParameter("action");
 		Utente user = (Utente) request.getSession().getAttribute("utente");
+		
 		response.setContentType("text/html");
+		
 		String direzione = null;
 
-		if (action.equals("login") || action.equals("registration")) {
+		if (action.equals("login") || action.equals("registration")) 
+		{
 			String username = request.getParameter("user-email");
 			String password = request.getParameter("password");
 
@@ -152,7 +155,7 @@ public class Autenticazione extends HttpServlet {
 					dispatcher.forward(request, response);
 				}
 			}
-		}else if (action.equals("logout")) {
+		} else if (action.equals("logout")) {
 			if (user.getEmail() != null) {
 				System.out.println("logout");
 				user.setCognome(null);
@@ -162,8 +165,8 @@ public class Autenticazione extends HttpServlet {
 				user.setCarrello(new Carrello());
 				user.setStato("unlogged");
 			} else {
-				
-				//TODO: dare una controllata qui!!!
+
+				// TODO: dare una controllata qui!!!
 				Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
 				adm.setRuolo(null);
 				adm.setUtente(null);
@@ -173,17 +176,16 @@ public class Autenticazione extends HttpServlet {
 			direzione = "/homepage";
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direzione);
 			dispatcher.forward(request, response);
-		}else if(action.equals("admintouser")) {
+		} else if (action.equals("admintouser")) {
 			Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
 			Utente temp = new Utente();
 			try {
 				temp = Utente.controllaCredenziali(adm.getEmail(), adm.getPassword());
-				
+
 				adm.setRuolo(null);
 				adm.setUtente(null);
 				adm.setStato("unlogged");
-				
-				
+
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -273,7 +275,7 @@ public class Autenticazione extends HttpServlet {
 				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direzione);
 				dispatcher.forward(request, response);
 			}
-			
+
 		}
 	}
 
@@ -283,12 +285,12 @@ public class Autenticazione extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		String direzione = null;
 		Utente user = (Utente) request.getSession().getAttribute("utente");
-		
+
 		Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
-		
+
 		if (adm.getEmail() != null) {
 			direzione = "/WEB-INF/adminPage.jsp";
 		} else if (user.getStato().equals("unlogged") && adm.getStato().equals("unlogged")) {
@@ -296,7 +298,7 @@ public class Autenticazione extends HttpServlet {
 		} else {
 			direzione = "/WEB-INF/customerPage.jsp";
 		}
-		
+
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direzione);
 		dispatcher.forward(request, response);
 	}
