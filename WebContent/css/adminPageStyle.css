@@ -1,0 +1,50 @@
+#account-remove{
+  	cursor:pointer;
+		width: 100%;
+	    vertical-align: middle;
+	    font-size: 0.90em;
+	    background-color: #55d6aa;
+	    padding: 1em 1em 1em 1em;
+		margin-right: 0;
+		margin-top: 1em;
+	    border: none;
+	    text-decoration: none;
+	    color: white;
+	    text-transform: uppercase;
+}
+#add-product{
+    text-decoration: none;
+    color: white;
+    padding: 1em 2em;
+    background-color: #55d6aa;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#addproduct-div form{
+ 	height:90%;
+}
+
+#remproduct-div form{
+ 	height:20%;
+}
+
+.scheda a{
+	width: 25%;
+    vertical-align: middle;
+    font-size: 0.90em;
+    background-color: #55d6aa;
+    padding: 1em 1em 1em 1em;
+	margin-right: 0;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+}
+
+#form-logout{
+	font-size: 1em;
+	margin-top: 2em;
+	text-transform: uppercase;
+}
