@@ -14,11 +14,11 @@ import javax.mail.internet.MimeMessage;
 public class EmailSend {
 	public static void sending(String username,String password) {
 		   try{
-	            String host ="smtp.live.com" ;
-	            String user = "w3play.staff@outlook.it";
+	            String host ="smtp.gmail.com" ;
+	            String user = "w3play.staff@gmail.com";
 	            String pass = "w3playroot";
 	            String to = username;
-	            String from = "w3play.staff@outlook.it";
+	            String from = "w3play.staff@gmail.com";
 	            String subject = "W3Play: Password Recovery";
 	            String messageText = "Your Password:"+password;
 	            boolean sessionDebug = false;
