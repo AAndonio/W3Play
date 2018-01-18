@@ -53,13 +53,19 @@ function validateForm(){
 		return letters.test(parola);
 	}
 	function onlyLetterWithSpace(parola) {
-		var letters = new RegExp(/^[A-Za-z ]+$/);
+		var letters = new RegExp(/^[A-Za-z ]{5,10}$/);
 		return letters.test(parola);
 	}
 
 	function alphanumeric(uadd)
 	{
-		var letters = new RegExp(/^[0-9a-zA-Z]+$/);
+		var letters = new RegExp(/^[0-9a-zA-Z]+$/);					
+		return letters.test(uadd);
+	}
+	
+	function alphanumericLength(uadd)
+	{
+		var letters = new RegExp(/^[0-9a-zA-Z :'-_!"£$%&\\()=?^]{6,20}$/);					
 		return letters.test(uadd);
 	}
 	
@@ -163,7 +169,7 @@ function validateForm(){
         var ccv = document.forms["changeCreditCard"]["ccv"].value;
        
         if(!CreditCard(numCarta)) {
-            alert("La carta di credito inserita non è valida");
+            alert("La carta di credito inserita non è valida(ES: 1234 1234 1234 1234)");
             return false;
         }else if (!onlyLetterWithSpace(Titolare)){
             alert("Il titolare puo' contenere solo caratteri alfabetici");
@@ -232,7 +238,7 @@ function validateForm(){
     
     function alphanumericSpaceWithSpecial(uadd)
 	{
-		var letters = new RegExp(/^[0-9a-zA-Z :'//-]+$/);
+		var letters = new RegExp(/^[0-9a-zA-Z :'-_!"£$%&\\()=?^]{3,20}$/);
 		return letters.test(uadd);
 	}
     
@@ -243,6 +249,7 @@ function validateForm(){
 	}
     
     function validateLogin() {
+    	
     	var email = document.forms["login-form"]["user-email"].value;
     	var pass = document.forms["login-form"]["password"].value;
     	
@@ -250,8 +257,8 @@ function validateForm(){
     	if (!validateEmail(email)){
     		alert("L'indirizzo e-mail non e' nel formato corretto");
     		return false;
-    	}else if (!alphanumeric(pass)){
-    		alert("La password deve contenere lettere e numeri");
+    	}else if (!alphanumericLength(pass)){
+    		alert("La password deve contenere tra 6 e 20 caratteri");
     		return false;
     	}
     }

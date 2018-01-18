@@ -16,7 +16,8 @@
   <link href="css/loginStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="css/customerPageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <script src="script/jquery-3.2.1.min.js"></script>
+  <script src="script/jquery-3.2.1.min.js"></script>
+  <script src="script/validationscript.js"></script>
   
 </head>
 
@@ -199,7 +200,7 @@
       document.getElementById("navbar-mobile-menu").style.display = "none";
   }
   </script>
-  <script src="script/validationscript.js"></script>
+ 
   <script type="text/javascript">
 $(document).ready(function() {
 

@@ -260,7 +260,7 @@
                 <h3>Aggiorna metodo di pagamento</h3>
                   <label>Numero carta</label>
                   <br/>
-                  <input type="text" id="numeroCarta" name="numeroCarta"/>
+                  <input type="text" id="numeroCarta" name="numeroCarta" placeholder="1234 1234 1234 1234"/>
                   <br/>
                   <label>Titolare</label>
                   <br/>
