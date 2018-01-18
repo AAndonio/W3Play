@@ -63,8 +63,6 @@ import bean.Utente;
            }
 
 
-		
-
 		/**
 		 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 		 */

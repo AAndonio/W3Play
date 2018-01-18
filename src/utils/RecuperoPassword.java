@@ -16,13 +16,13 @@ import bean.Utente;
  * Servlet implementation class EmailControlServlet
  */
 @WebServlet("/EmailControlServlet")
-public class EmailControlServlet extends HttpServlet {
+public class RecuperoPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EmailControlServlet() {
+    public RecuperoPassword() {
         super();
         // TODO Auto-generated constructor stub
     }

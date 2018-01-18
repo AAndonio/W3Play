@@ -13,11 +13,23 @@
   <title> W3Play</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/pageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
+  <link href="css/alertStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="css/loginStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="css/customerPageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script src="script/jquery-3.2.1.min.js"></script>
   <script src="script/validationscript.js"></script>
+
+  <!-- ALERT SCRIPT -->
+  <script type="text/javascript">
+	
+  	function hideAlert() {
+  		
+  		var div = document.getElementsByClassName("alert")[0];
+  		div.style.display = "none";
+  	}
+  
+  </script>
   
 </head>
 
@@ -158,12 +170,12 @@
      
       <div id="recovery-div" class="edit-attributes-div">
 				<div>
-					<form class="form" name="recov" action="editProfileInfo" method="post" >
+					<form class="form" name="recov" action="RecuperoPassword" method="post" >
            			<h3>Recupera Password</h3>
            			  <label>Username:</label><br/>
-                	  <input type="text" id="username" name="username"/><br/>
-					<input class="button-form" type="submit" value="Recupera">
-                  	<input name="action" type="hidden" value="recupera">
+                	  <input type="text" id="email" name="email"/><br/>
+					  <input class="button-form" type="submit" value="Recupera">
+                  	  <input name="action" type="hidden" value="recupera">
               		</form>
 				</div>
 			</div>
@@ -190,6 +202,27 @@
           <p> w3play@gmail.com </p>
         </div>
       </footer>
+      
+      <!-- ALERT -->
+      <%
+      	String result = response.getHeader("alert");
+      
+      	if ("positive".equals(result)) { %>
+      		
+	      	<div class="alert success">
+	  		  <span class="closebtn" onclick="hideAlert()">&times;</span>  
+	  		  <strong>Successo!</strong> L'email di recupero è stata inviata con successo.
+			</div>
+      		
+      <% } else if (result != null) { %>
+      		
+      		<div class="alert error">
+      	  	  <span class="closebtn" onclick="hideAlert()">&times;</span>  
+      	  	  <strong>Errore!</strong> <%=result %>
+      		</div>
+      	
+      <% } %>
+      
     </div>
   <script>
   function showMenu() {
