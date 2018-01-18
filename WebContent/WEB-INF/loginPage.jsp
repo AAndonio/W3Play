@@ -209,14 +209,14 @@
       
       	if ("positive".equals(result)) { %>
       		
-	      	<div class="alert success">
+	      	<div class="alert success" id="alert-success">
 	  		  <span class="closebtn" onclick="hideAlert()">&times;</span>  
 	  		  <strong>Successo!</strong> L'email di recupero è stata inviata con successo.
 			</div>
       		
       <% } else if (result != null) { %>
       		
-      		<div class="alert error">
+      		<div class="alert error" id="alert-error">
       	  	  <span class="closebtn" onclick="hideAlert()">&times;</span>  
       	  	  <strong>Errore!</strong> <%=result %>
       		</div>

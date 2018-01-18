@@ -1,14 +1,11 @@
 package test.controller.auth;
 
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.junit.*;
 import static org.junit.Assert.*;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 import util.IO;
@@ -21,9 +18,9 @@ public class RecuperoPasswordTest {
 
 	@Before
 	public void setUp() throws Exception {
+		
 		System.setProperty("webdriver.chrome.driver", ".\\WebDriver\\chromedriver.exe");
 		
-		//driver = new ChromeDriver();
 		driver = new HtmlUnitDriver(true); //con true si attiva il supporto a  javascript
 		
 		baseUrl = "https://www.katalon.com/";
@@ -41,18 +38,57 @@ public class RecuperoPasswordTest {
 		WebElement element = findElement(By.id("email"));
 		element.sendKeys(email);
 		element.submit();
+	}
+	
+	//--------------------------------------------------------------------------
+	//-- TEST CASES
+	//--------------------------------------------------------------------------
+	
+	@Test
+	public void TC_1_3_1() throws Exception {
 		
-		IO.println(driver.getCurrentUrl());
-		
-		//manca il resto!...
+		ripetitiveCode("email%2@prova.com");
+		assertNotNull(findElement(By.id("alert-error")));
 	}
 	
 	@Test
-	public void testUntitledTestCase() throws Exception {
+	public void TC_1_3_2() throws Exception {
 		
-		ripetitiveCode("email");
+		ripetitiveCode("a@prova.com");
+		assertNotNull(findElement(By.id("alert-error")));
 	}
-
+	
+	@Test
+	public void TC_1_3_3() throws Exception {
+		
+		ripetitiveCode("email@prova.dominio");
+		assertNotNull(findElement(By.id("alert-error")));
+	}
+	
+	@Test
+	public void TC_1_3_4() throws Exception {
+		
+		ripetitiveCode("");
+		assertNotNull(findElement(By.id("alert-error")));
+	}
+	
+	@Test
+	public void TC_1_3_5() throws Exception {
+		
+		ripetitiveCode("antonio@w3play.it");
+		assertNotNull(findElement(By.id("alert-error")));
+	}
+	
+	@Test
+	public void TC_1_3_6() throws Exception {
+		
+		ripetitiveCode("ndonio96@gmail.com");
+		assertNotNull(findElement(By.id("alert-success")));
+	}
+	
+	//-- END OF TEST CASES
+	//--------------------------------------------------------------------------
+	
 	@After
 	public void tearDown() throws Exception {
 		driver.quit();
