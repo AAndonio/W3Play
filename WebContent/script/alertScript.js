@@ -2,6 +2,6 @@
 
 function showAlert(text) {
 	
-	var alert = document.getElementsByClassName("alert")[0];
+	//var alert = document.getElementsByClassName("alert")[0];
 	
 }

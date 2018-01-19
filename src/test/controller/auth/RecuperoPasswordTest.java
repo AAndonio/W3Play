@@ -8,12 +8,10 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-import util.IO;
-
 public class RecuperoPasswordTest {
+	
 	private WebDriver driver;
 	private String baseUrl;
-	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
 
 	@Before

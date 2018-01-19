@@ -149,7 +149,7 @@
         	<% } %>
         	
         	
-       	
+       		  <!-- LOGIN FORM -->
         	  <form id="login-form" name = "login-form" action="login" method="post" onsubmit="return validateLogin();">
                 <h2>Accedi con i tuoi dati</h2>
                 <div class="label-text"><label id="come" for="username">E-mail</label></div>
@@ -168,9 +168,10 @@
          </div>
      </section>
      
+     <!-- RECUPERO PASSWORD FORM -->
       <div id="recovery-div" class="edit-attributes-div">
 				<div>
-					<form class="form" name="recov" action="RecuperoPassword" method="post" >
+					<form class="form" id="recupero-password-form" name="recov" action="RecuperoPassword" method="post">
            			<h3>Recupera Password</h3>
            			  <label>Username:</label><br/>
                 	  <input type="text" id="email" name="email"/><br/>

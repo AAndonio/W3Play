@@ -269,8 +269,5 @@ function validateForm(){
     		return validateChangeCreditCard();
     	else
     		return true;
-    	}
-    
-
-    
+    	}   
     
