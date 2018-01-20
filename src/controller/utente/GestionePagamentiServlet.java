@@ -20,88 +20,100 @@ import bean.Utente;
 @WebServlet("/editCartInfo")
 public class GestionePagamentiServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GestionePagamentiServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public GestionePagamentiServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 		String action = request.getParameter("action");
 		Utente user = (Utente) request.getSession().getAttribute("utente");
-		String direzione = null;
 		
-		if(action.equals("aggiungiCarta")) {
+		String direzione = null;
+
+		if (action.equals("aggiungiCarta")) {
+			
 			String numeroCarta = request.getParameter("numeroCarta");
 			String titolare = request.getParameter("Titolare");
 			LocalDate date = LocalDate.parse(request.getParameter("Scadenza"));
 			int ccv = Integer.parseInt(request.getParameter("ccv"));
-			CartaDiCredito carta = new CartaDiCredito(numeroCarta, titolare, date , ccv);
-			user.getCarte().add(carta);
 			
+			CartaDiCredito carta = new CartaDiCredito(numeroCarta, titolare, date, ccv);
+			user.getCarte().add(carta);
+
 			try {
+				
 				CartaDiCredito.addCreditCard(carta);
 				CartaDiCredito.associaCartaUtente(carta.getNumerocarta(), user.getEmail());
+				
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			direzione="/WEB-INF/customerPage.jsp";
-		}
-		else if(action.equals("aggiornaCarta")){
+			
+			direzione = "/WEB-INF/customerPage.jsp";
+			
+		} else if (action.equals("aggiornaCarta")) {
+			
 			String numeroCartaVecchio = request.getParameter("cartaDaAggiornare");
 			String numeroCartaNuovo = request.getParameter("numeroCarta");
 			String titolare = request.getParameter("Titolare");
-			
-			
 			LocalDate date = LocalDate.parse(request.getParameter("Scadenza"));
 			int ccv = Integer.parseInt(request.getParameter("ccv"));
-			CartaDiCredito carta = new CartaDiCredito(numeroCartaNuovo, titolare, date , ccv);
 			
+			CartaDiCredito carta = new CartaDiCredito(numeroCartaNuovo, titolare, date, ccv);
+
 			aggiornaCartaUtente(numeroCartaVecchio, carta, user);
-			direzione="/WEB-INF/customerPage.jsp";
+			
+			direzione = "/WEB-INF/customerPage.jsp";
 		}
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direzione);
 		dispatcher.forward(request, response);
-	
-		
 	}
-	
-	
+
 	private void aggiornaCartaUtente(String numeroVecchio, CartaDiCredito nuova, Utente utente) {
-		
+
 		try {
+			
 			CartaDiCredito.eliminaAssociazione(numeroVecchio, utente.getEmail());
 			CartaDiCredito.updateCarta(numeroVecchio, nuova);
 			CartaDiCredito.associaCartaUtente(nuova.getNumerocarta(), utente.getEmail());
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		loadCreditCard(utente);
 	}
-	
-	private void loadCreditCard(Utente user){
+
+	private void loadCreditCard(Utente user) {
+		
 		try {
+			
 			user.setCarte(CartaDiCredito.recuperaCarteByUtente(user.getEmail()));
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }

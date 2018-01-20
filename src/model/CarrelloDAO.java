@@ -22,7 +22,9 @@ public class CarrelloDAO {
 		pstmt = con.prepareStatement(UPDATE);
 		pstmt.setInt(1, c.getQtaprodotti());
 		pstmt.setFloat(2, c.getPrezzoTotale());
-		pstmt.setString(3, c.getUtente());
+		
+		//fix del fix: parametri sbagliati e query update sbagliata >.<
+		pstmt.setInt(3, c.getIdCarrello());
 		
 		pstmt.executeUpdate();
 		
@@ -60,10 +62,14 @@ public class CarrelloDAO {
 		pstmt.setInt(1, idCarrello);
 		ResultSet rs = pstmt.executeQuery();
 		
+		//fix: operation not allowed after result set is closed
+		Carrello carrello = converti(rs); 
+		
+		rs.close();
 		pstmt.close();
 		con.close(); 		
 		
-		return converti(rs); 
+		return carrello; 
 			
 	}
 	
@@ -78,13 +84,13 @@ public class CarrelloDAO {
 		pstmt.setString(1, email);
 		ResultSet rs = pstmt.executeQuery();
 		
+		//fix: operation not allowed after result set is closed
 		Carrello carrello = converti(rs); 
 		
 		pstmt.close();
 		con.close(); 	
 		
-		return carrello;
-			
+		return carrello;	
 	}
 	
 	//-----------------------------------------------------------------------------
@@ -102,6 +108,5 @@ public class CarrelloDAO {
 	
 	private static final String LOAD_CART_BY_EMAIL = "SELECT * FROM Carrello WHERE Utente = ?";
 	private static final String CREATE_CART ="INSERT INTO Carrello (QtaProdotti, PrezzoTotale, Utente) VALUES (?,?,?)";
-	private static final String UPDATE ="UPDATE INTO Carrello (QtaProdotti, PrezzoTotale, Utente) VALUES (?,?,?) WHERE idCarrello = ?"; //DA CONTROLLARE
-	
+	private static final String UPDATE ="UPDATE Carrello SET QtaProdotti = ?, PrezzoTotale = ?  WHERE idCarrello = ?"; //FIXATA!!!!
 }

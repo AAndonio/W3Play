@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import model.CartaDiCreditoDAO;
-import model.CartaDiCreditoDAO;
 
 public class CartaDiCredito {
 
@@ -61,7 +60,7 @@ public class CartaDiCredito {
 	}
 	
 	public static void associaCartaUtente(String carta, String user) throws SQLException {
-		CartaDiCreditoDAO.doSave(carta,user);
+		CartaDiCreditoDAO.doSave(carta, user);
 	}
 	
 	public static void eliminaAssociazione(String carta, String user) throws SQLException {

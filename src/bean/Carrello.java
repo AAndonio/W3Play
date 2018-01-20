@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import com.sun.mail.imap.protocol.Item;
+
 import model.CarrelloDAO;
 import model.OggettoCarrello;
 
@@ -38,8 +40,13 @@ public class Carrello {
 	public void setIdCarrello(int idCarrello) {
 		this.idCarrello = idCarrello;
 	}
-
+	
 	public int getQtaprodotti() {
+		
+		//se la quantità è 0 prova a calcolarla
+		if (Qtaprodotti <= 0)
+			articoli.forEach((item) -> Qtaprodotti += item.getQuantita());
+		
 		return Qtaprodotti;
 	}
 
@@ -48,6 +55,11 @@ public class Carrello {
 	}
 
 	public float getPrezzoTotale() {
+		
+		//se il prezzo è 0 prova a calcolarlo
+		if (prezzoTotale <= 0)
+			articoli.forEach((item) -> prezzoTotale += item.getQuantita() * item.getOggetto().getPrezzo() );
+		
 		return prezzoTotale;
 	}
 

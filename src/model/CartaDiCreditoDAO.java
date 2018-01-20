@@ -46,10 +46,13 @@ public class CartaDiCreditoDAO {
 		pstmt.setString(1, numcarta);
 		ResultSet rs = pstmt.executeQuery();
 		
-		pstmt.close();
-		con.close(); 		
+		CartaDiCredito carta = converti(rs);
 		
-		return converti(rs);	
+		pstmt.close();
+		con.close();
+		rs.close();
+		
+		return carta;	
 	}
 	
 	public static ArrayList<CartaDiCredito> doRetrieveByUser(String email) throws SQLException
@@ -144,12 +147,20 @@ public class CartaDiCreditoDAO {
         pstmt = con.prepareStatement(DELETE);
         pstmt.setString(1, carta);
         pstmt.setString(2, utente);
-       
+        
+        //cancello associazione con utente
         pstmt.executeUpdate();
        
         pstmt.close();
+        
+        pstmt = con.prepareStatement(DELETE_CARD);
+        pstmt.setString(1, carta);
+        
+        //cancello la carta
+        pstmt.executeUpdate();
+        
+        pstmt.close();
         con.close();
-           
     }
 	
 	
@@ -161,5 +172,6 @@ public class CartaDiCreditoDAO {
 	
 	private static final String SAVE ="INSERT INTO Associare VALUES (?,?)";
     private static final String DELETE ="DELETE FROM Associare WHERE Carta = ? AND Utente = ?";
+    private static final String DELETE_CARD = "DELETE FROM CartaDiCredito WHERE NumeroCarta = ?";
 
 }

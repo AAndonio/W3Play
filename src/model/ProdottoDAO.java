@@ -89,11 +89,15 @@ public class ProdottoDAO {
         pstmt = con.prepareStatement(sql);
         pstmt.setInt(1, idProdotto);
         ResultSet rs = pstmt.executeQuery();
-       
+        
+        //fix: operation not allowed after result set is closed
+        Prodotto prodotto = converti(rs);
+        
+        rs.close();
         pstmt.close();
         con.close();       
        
-        return converti(rs);
+        return prodotto;
            
     }
       
