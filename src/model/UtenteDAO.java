@@ -48,6 +48,8 @@ public class UtenteDAO {
 
 	}
 
+
+	
 	public static Utente Check(String email, String password) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -61,9 +63,9 @@ public class UtenteDAO {
 
 		ResultSet rset = pstmt.executeQuery();
 		if (rset.next()) {
-			user.setNome(rset.getString("Nome"));
-			user.setCognome(rset.getString("Cognome"));
 			user.setEmail(rset.getString("Email"));
+			user.setNome(rset.getString("Nome"));
+			user.setCognome(rset.getString("Cognome"));	
 			user.setPassword(rset.getString("Password"));
 			user.setCap(rset.getString("CAP"));
 			user.setCivico(rset.getString("Civico"));
@@ -82,7 +84,7 @@ public class UtenteDAO {
 		}
 	}
 
-	public static void doSaveOrUpdate(Utente u) throws SQLException {
+/*	public static void doSaveOrUpdate(Utente u) throws SQLException {
 		String sql = "INSERT INTO utente VALUES (?,?,?,?,?)";
 		String sqlU = "UPDATE utente SET email = ?, nome = ?, cognome = ? , password = ?, indirizzo ) ?";
 		Connection con = null;
@@ -99,6 +101,7 @@ public class UtenteDAO {
 			pstmt.setString(6, u.getCivico());
 			pstmt.setString(7, u.getCap());
 			pstmt.setString(8, u.getCitta());
+			
 
 			pstmt.executeUpdate();
 		} else {
@@ -118,7 +121,8 @@ public class UtenteDAO {
 		pstmt.close();
 		con.close();
 	}
-
+*/
+	
 	public static void doUpdateAddress(String via, String numeroCivico, String cap, String citta, String utente)
 			throws SQLException {
 		Connection con = null;

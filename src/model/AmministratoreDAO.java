@@ -50,8 +50,7 @@ public class AmministratoreDAO {
 				//
 				admin = new Amministratore(
 						utente, 
-						Amministratore.Ruolo.valueOf(rset.getString(Schema.Amministratore.RUOLO)))
-				;
+						Amministratore.Ruolo.valueOf(rset.getString(Schema.Amministratore.RUOLO)));
 				
 				rs.close();
 				ps.close();
@@ -70,8 +69,9 @@ public class AmministratoreDAO {
 			con.close();
 
 			return admin;
+			}
 		}
-	}
+		
 	
 	public static void doUpdatePassword(String password, Amministratore amministratore) throws SQLException {
 

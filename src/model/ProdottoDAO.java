@@ -19,10 +19,14 @@ public class ProdottoDAO {
  
     private ProdottoDAO(){}
    
-    public static void doSave(Prodotto p) throws SQLException
-    {
+    public static void doSave(Prodotto p)  {
+    	
+    	
+    	
         Connection con = null;
         PreparedStatement pstmt = null;
+        
+        try {
         con = DBConnection.getConnection();
        
         pstmt = con.prepareStatement(DO_SAVE);
@@ -42,16 +46,20 @@ public class ProdottoDAO {
         pstmt.setString(11, p.getLinkVideo());
        
         pstmt.executeUpdate();
-       
         pstmt.close();
         con.close();
-           
+        
+        
+        
+        }catch(Exception e) {
+        	           
     }
-   
-    public static void doUpdate(Prodotto p) throws SQLException
+    }
+    public static void doUpdate(Prodotto p) 
     {
         Connection con = null;
         PreparedStatement pstmt = null;
+        try {
         con = DBConnection.getConnection();
        
         pstmt = con.prepareStatement(DO_UPDATE);
@@ -72,28 +80,37 @@ public class ProdottoDAO {
         pstmt.setInt(12, p.getIdProdotto());
        
         pstmt.executeUpdate();
-        System.out.println("Nella DAOOOOOO");
        
         pstmt.close();
         con.close();
+        }catch(Exception e){
+        	
+        }
            
     }
    
-    public static Prodotto doRetrieveByKey(int idProdotto) throws SQLException
+    public static Prodotto doRetrieveByKey(int idProdotto) 
     {
         String sql = "SELECT * FROM prodotto WHERE idProdotto = ?";
         Connection con = null;
         PreparedStatement pstmt = null;
-        con = DBConnection.getConnection();
-       
-        pstmt = con.prepareStatement(sql);
-        pstmt.setInt(1, idProdotto);
-        ResultSet rs = pstmt.executeQuery();
-       
-        pstmt.close();
-        con.close();       
-       
-        return converti(rs);
+        try {
+			con = DBConnection.getConnection();
+			pstmt = con.prepareStatement(sql);
+	        pstmt.setInt(1, idProdotto);
+	        ResultSet rs = pstmt.executeQuery();	        
+	        Prodotto px=converti(rs);
+	      	        
+	        pstmt.close();
+	        con.close(); 
+	        return px;
+	        
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+    
            
     }
       
@@ -143,9 +160,12 @@ public class ProdottoDAO {
         return prodotti;
     }
    
-    public static ArrayList<Prodotto> ultimiArrivi() throws SQLException{
+    public static ArrayList<Prodotto> ultimiArrivi(){
         Connection con = null;
         PreparedStatement pstmt = null;
+ 
+        try {
+        
         con = DBConnection.getConnection();
        
         pstmt = con.prepareStatement(ULTIMI_ARRIVI);
@@ -157,6 +177,9 @@ public class ProdottoDAO {
         con.close();
        
         return risultati;
+        }catch(Exception e) {
+        	return null;
+        }
        
     }
    
@@ -269,16 +292,21 @@ public class ProdottoDAO {
         con.close();
        
     }
+
    
     //-------------------------------------------------------------------------------------
     //-- DCS
     //-------------------------------------------------------------------------------------
-    public static Prodotto converti(ResultSet rs) throws SQLException
-    {
+    public static Prodotto converti(ResultSet rs){
         Prodotto p  = null;
+        try {
         if(rs.next())
             p = new Prodotto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7), rs.getFloat(8), rs.getInt(9), rs.getDate(10).toLocalDate(), rs.getString(12));
-        return p;
+        }catch(Exception e) {
+        	
+        }finally {
+        	return p;
+        }
     }
    
     public static ArrayList<Prodotto> convertiArray(ResultSet rs) throws SQLException
