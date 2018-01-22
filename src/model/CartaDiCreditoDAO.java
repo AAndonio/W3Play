@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.sun.org.apache.regexp.internal.recompile;
+
 import bean.CartaDiCredito;
 import utils.DBConnection;
 
@@ -75,7 +77,7 @@ public class CartaDiCreditoDAO {
 			
 	}
 	
-	public static void doUpdate(String vecchia, CartaDiCredito nuova) throws SQLException{
+	public static void doUpdate(String vecchia, CartaDiCredito nuova) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -150,19 +152,33 @@ public class CartaDiCreditoDAO {
         
         //cancello associazione con utente
         pstmt.executeUpdate();
-       
         pstmt.close();
         
-        pstmt = con.prepareStatement(DELETE_CARD);
-        pstmt.setString(1, carta);
+        //count delle associazioni
+        pstmt = con.prepareStatement(COUNT_ASSOCIAZIONI);
+        pstmt.setString(1,  carta);
         
-        //cancello la carta
-        pstmt.executeUpdate();
-        
+        ResultSet rs = pstmt.executeQuery();
+        if (rs.next()) {
+        	
+        	int count = rs.getInt(1);
+        	
+        	//cancella la carta di credito se count == 0
+        	if (count == 0) {
+        		
+        		PreparedStatement statement = con.prepareStatement(DELETE_CARD);
+        		statement.setString(1, carta);
+                
+                //cancello la carta
+        		statement.executeUpdate();
+        		statement.close();
+        	}
+        }
+       
+        rs.close();
         pstmt.close();
         con.close();
     }
-	
 	
 	//-----------------------------------------------------------------------------
 	
@@ -173,5 +189,6 @@ public class CartaDiCreditoDAO {
 	private static final String SAVE ="INSERT INTO Associare VALUES (?,?)";
     private static final String DELETE ="DELETE FROM Associare WHERE Carta = ? AND Utente = ?";
     private static final String DELETE_CARD = "DELETE FROM CartaDiCredito WHERE NumeroCarta = ?";
+    private static final String COUNT_ASSOCIAZIONI = "SELECT count(*) FROM associare WHERE Carta = ?";
 
 }

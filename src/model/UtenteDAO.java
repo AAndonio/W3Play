@@ -81,7 +81,8 @@ public class UtenteDAO {
 			return user;
 		}
 	}
-
+	
+	//TODO: verificare corretto funzionamento!
 	public static void doSaveOrUpdate(Utente u) throws SQLException {
 		String sql = "INSERT INTO utente VALUES (?,?,?,?,?)";
 		String sqlU = "UPDATE utente SET email = ?, nome = ?, cognome = ? , password = ?, indirizzo ) ?";

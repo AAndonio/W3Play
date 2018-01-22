@@ -83,13 +83,15 @@ public class Utente {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-  
 
     public ArrayList<CartaDiCredito> getCarte() {
         return carte;
     }
-
+    
+    public void addCarta(CartaDiCredito carta) {
+    	this.carte.add(carta);
+    }
+    
     public void setCarte(ArrayList<CartaDiCredito> carte) {
         this.carte = carte;
     }
@@ -147,7 +149,7 @@ public class Utente {
 
     private String email = null, password= null, nome= null, cognome= null, stato = "unlogged", via = null, civico = null, cap = null, citta=null;
 
-    private ArrayList<CartaDiCredito> carte = null;
+    private ArrayList<CartaDiCredito> carte = new ArrayList<>();
     private Carrello carrello = new Carrello();
     private ArrayList<Ordine> ordini = null;
 }
