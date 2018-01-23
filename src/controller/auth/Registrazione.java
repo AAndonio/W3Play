@@ -20,9 +20,6 @@ import bean.Utente;
 @WebServlet("/regServlet")
 public class Registrazione extends HttpServlet {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public Registrazione() {}
@@ -58,6 +55,9 @@ public class Registrazione extends HttpServlet {
 			
 			UtenteDAO.doSave(utente);
 			
+			Carrello carrello = Carrello.getCarrelloUtente(utente); //crea il carrello per il nuovo utente
+			utente.setCarrello(carrello);
+			
 		} catch (SQLException e) {
 			IO.println("Registrazione: errore salvataggio utente o creazione del carrello!");
 			e.printStackTrace();
@@ -69,8 +69,7 @@ public class Registrazione extends HttpServlet {
 	} else {
 		System.out.println("Qualcosa di sbagliato!");
 	}
-		
-	}
+}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/registration.jsp");

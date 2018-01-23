@@ -3,7 +3,6 @@ package bean;
 import java.sql.SQLException;
 
 import model.AmministratoreDAO;
-import model.UtenteDAO;
 
 public class Amministratore {
 	
@@ -51,7 +50,17 @@ public class Amministratore {
 	public String getStato() {
 		return stato;
 	}
-
+	
+	public boolean isLoggato() {
+		
+		return Utente.LOGGATO.equals(stato);
+	}
+	
+	public boolean isNotLoggato() {
+    	
+    	return Utente.UNLOGGED.equals(stato);
+    }
+	
 	public void setStato(String stato) {
 		this.stato = stato;
 	}
@@ -71,10 +80,21 @@ public class Amministratore {
 	public void aggiornaPassword(String password) throws SQLException {
 		AmministratoreDAO.doUpdatePassword(password, this);
 	}
-	 public void eliminaAdmin(String email) throws SQLException {
-	    	AmministratoreDAO.doDeleteAdmin(email);
-	    }
-	 
+	
+	public void eliminaAdmin(String email) throws SQLException {
+	    AmministratoreDAO.doDeleteAdmin(email);
+	}
+	
+	
+	
+	/* (non-Javadoc) @see java.lang.Object#toString() */
+	@Override
+	public String toString() {
+		return "Amministratore [stato=" + stato + ", ruolo=" + ruolo + ", utente=" + utente + "]";
+	}
+
+
+
 	//-- fields
 	private String stato = "unlogged";
 	private Ruolo ruolo;

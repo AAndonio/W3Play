@@ -53,7 +53,7 @@ function validateForm(){
 		return letters.test(parola);
 	}
 	function onlyLetterWithSpace(parola) {
-		var letters = new RegExp(/^[A-Za-z ]{5,10}$/);
+		var letters = new RegExp(/^[A-Za-z ]{4,10}$/);
 		return letters.test(parola);
 	}
 

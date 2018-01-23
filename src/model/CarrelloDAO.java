@@ -43,20 +43,30 @@ public class CarrelloDAO {
 			e.printStackTrace();
 		}
 	}
-
-	public static void doCreate(String email) throws SQLException {
+	
+	public static int doCreate(String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
-
+		
+		//crea il carrello nella tabella carrello
 		pstmt = con.prepareStatement(CREATE_CART);
 		pstmt.setString(1, email);
 
 		pstmt.executeUpdate();
-
 		pstmt.close();
-		con.close();
-
+		
+		int id = -1;
+		
+		//trova l'id del carrello appena creato
+		pstmt = con.prepareStatement(FIND_CART_ID);
+		pstmt.setString(1, email);
+		
+		ResultSet rs = pstmt.executeQuery();
+		if (rs.next())
+			id = rs.getInt(1);
+		
+		return id;
 	}
 
 	public static Carrello doRetrieveByKey(int idCarrello) throws SQLException {
@@ -78,7 +88,13 @@ public class CarrelloDAO {
 		return carrello;
 
 	}
-
+	
+	/**
+	 * Recupera dal db il carrello dell'utente.
+	 * @param utente
+	 * @return
+	 * @throws SQLException
+	 */
 	public static Carrello doRetrieveByUser(Utente utente) throws SQLException {
 
 		Connection con = null;
@@ -96,7 +112,14 @@ public class CarrelloDAO {
 		if (carrello == null) {
 
 			carrello = new Carrello();
-			doCreate(utente.getEmail());
+			int id = doCreate(utente.getEmail());
+			
+			IO.println("ID-Carrello: " + id);
+			
+			if (id < 0)
+				throw new SQLException("CarrelloDAO.doRetrieveByUser: id del carrello negativo, errore!");
+			else
+				carrello.setIdCarrello(id);
 		}
 
 		rs.close();
@@ -250,7 +273,8 @@ public class CarrelloDAO {
 		return c;
 	}
 	// -----------------------------------------------------------------------------
-
+	
+	private static final String FIND_CART_ID = "SELECT idCarrello FROM carrello WHERE Utente = ?";
 	private static final String FIND_BY_ID = "SELECT * FROM carrello WHERE idCarrello = ?";
 	private static final String LOAD_CART_BY_EMAIL = "SELECT * FROM Carrello WHERE Utente = ?";
 	private static final String CREATE_CART = "INSERT INTO Carrello (QtaProdotti, PrezzoTotale, Utente) VALUES (0,0,?)";

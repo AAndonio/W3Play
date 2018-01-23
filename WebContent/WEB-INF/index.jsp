@@ -1,3 +1,4 @@
+<%@page import="util.IO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="bean.Utente, bean.Prodotto, java.util.ArrayList, bean.Amministratore"%>
@@ -44,7 +45,7 @@
 							Utente utente = (Utente) request.getSession().getAttribute("utente");
 							Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
 							
-							if (utente.getStato().equals("loggato") || adm.getEmail() != null) {
+							if (utente.isLoggato() || adm.getEmail() != null ) {
 						%>
 						<img src="img/user.png"><a id="login-link" href="login">
 							Il mio profilo</a>

@@ -121,7 +121,12 @@ public class Utente {
 
     public boolean isLoggato() {
     	
-    	return "loggato".equals(stato);
+    	return LOGGATO.equals(stato);
+    }
+    
+    public boolean isNotLoggato() {
+    	
+    	return UNLOGGED.equals(stato);
     }
     
     public void setStato(String stato) {
@@ -155,7 +160,19 @@ public class Utente {
     	
     }
 
-    private String email = null, password= null, nome= null, cognome= null, stato = "unlogged", via = null, civico = null, cap = null, citta=null;
+    
+    
+    /* (non-Javadoc) @see java.lang.Object#toString() */
+	@Override
+	public String toString() {
+		return "Utente [email=" + email + ", password=" + password + ", nome=" + nome + ", cognome=" + cognome
+				+ ", stato=" + stato + "]";
+	}
+
+	public static final String LOGGATO = "loggato"; 
+	public static final String UNLOGGED = "unlogged";
+
+	private String email = null, password= null, nome= null, cognome= null, stato = "unlogged", via = null, civico = null, cap = null, citta=null;
 
     private ArrayList<CartaDiCredito> carte = new ArrayList<>();
     private Carrello carrello = new Carrello();

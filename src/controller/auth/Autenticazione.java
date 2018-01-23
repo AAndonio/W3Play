@@ -55,7 +55,7 @@ public class Autenticazione extends HttpServlet {
 
 			if (adm.getEmail() != null) {
 				
-				adm.setStato("loggato");
+				adm.setStato(Utente.LOGGATO);
 				
 				request.getSession().setAttribute("admin", adm);
 				direzione = "/WEB-INF/adminPage.jsp";
@@ -189,13 +189,31 @@ public class Autenticazione extends HttpServlet {
 		Utente user = (Utente) request.getSession().getAttribute("utente");
 
 		Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
-
-		if (adm != null && adm.getEmail() != null) {
+		
+		IO.println(adm);
+		IO.println(user);
+		
+		if (user == null)
+			throw new IOException("Autenticazione.doGet: utente nullo!");
+		
+		if (adm == null)
+			throw new IOException("Autenticazione.doGet: amministratore nullo!");
+		
+		boolean loginCondition = user.isNotLoggato() && adm.isNotLoggato();
+		boolean adminCondition = adm.isLoggato() && user.isNotLoggato();//(adm.getEmail() != null) && (adm.getUtente() != null);
+		boolean userCondition  = user.isLoggato() && adm.isNotLoggato();//Utente.UNLOGGED.equals(user.getStato()) && Utente.UNLOGGED.equals(adm.getStato());
+		
+		if (adminCondition) {
 			direzione = "/WEB-INF/adminPage.jsp";
-		} else if (user != null && user.getStato().equals("unlogged") && adm.getStato().equals("unlogged")) {
-			direzione = "/WEB-INF/loginPage.jsp";
-		} else {
+			IO.println("adminCondition");
+			
+		} else if (userCondition) {
 			direzione = "/WEB-INF/customerPage.jsp";
+			IO.println("userCondition");
+			
+		} else if (loginCondition) {
+			direzione = "/WEB-INF/loginPage.jsp";
+			IO.println("loginCondition");
 		}
 
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direzione);
