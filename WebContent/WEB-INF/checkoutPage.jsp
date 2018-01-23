@@ -1,5 +1,9 @@
+<%@page import="bean.Prodotto"%>
+<%@page import="util.Entry"%>
+<%@page import="java.util.List"%>
+<%@page import="bean.Carrello"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.OggettoCarrello, java.util.Formatter, bean.CartaDiCredito, bean.Utente"%>
+    pageEncoding="UTF-8" import="java.util.Formatter, bean.CartaDiCredito, bean.Utente"%>
     
     <jsp:useBean id="utente" class="bean.Utente" scope="session" />
     
@@ -170,12 +174,19 @@
                               <th class="table-row">Q.tà</th>
                               <th class="table-row">Costo &euro;</th>
                             </tr>
-                            <% for(OggettoCarrello articolo: utente.getCarrello().getArticoli()){
-                            	Formatter formatter2 = new java.util.Formatter();%>
+                            <% 
+                            	Carrello carrello = utente.getCarrello();
+	                           	 			
+                            	for (Entry<Prodotto, Integer> entry: carrello.getListaArticoli()) {
+                            		Formatter formatter2 = new java.util.Formatter();
+                            		
+                            		Prodotto articolo = entry.getKey();
+                            		int quantita = entry.getValue();
+                            	%>
                             <tr>
-                              <td><%= articolo.getOggetto().getNome()%></td>
-                              <td class="table-row"><%=articolo.getQuantita()%></td>
-                              <td class="table-row"><%=formatter2.format("%.2f",articolo.getOggetto().getPrezzo() * articolo.getQuantita())%></td>
+                              <td><%= articolo.getNome()%></td>
+                              <td class="table-row"><%= quantita%></td>
+                              <td class="table-row"><%=formatter2.format("%.2f",articolo.getPrezzo() * quantita)%></td>
                             </tr>
                             <% } %>
                           </table>
@@ -184,7 +195,7 @@
                 
             </div>
             <div id="final-checkout">
-                    <h3>Totale ordine: &euro;<%=formatter.format("%.2f", utente.getCarrello().getPrezzoTotale())%></h3>
+                    <h3>Totale ordine: &euro;<%=formatter.format("%.2f", carrello.getPrezzoTotale())%></h3>
                     
                         <input id="final-checkout-button" type="submit" value="Inoltra ordine"/>
                        	<input type="hidden" name="action" value="riepilogo"/>

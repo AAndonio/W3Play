@@ -13,8 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Carrello;
 import bean.Prodotto;
 import bean.Utente;
-import model.OggettoCarrello;
-import model.OggettoCarrelloDAO;
+import model.ProdottoDAO;
+import util.IO;
 
 /**
  * Servlet implementation class cartServlet
@@ -22,165 +22,148 @@ import model.OggettoCarrelloDAO;
 @WebServlet("/cartServlet")
 public class CarrelloServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CarrelloServlet() {}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CarrelloServlet() {
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		Utente user = (Utente) request.getSession().getAttribute("utente");
-		if(user.getStato().equals("loggato")) {
-			loadCart(user);
-			loadCartItems(user);
-			user.getCarrello().aggiornaPrezzoCarrello();
+		
+		IO.println("CarrelloServlet.doGet");
+		
+		if (user == null)
+			throw new IOException("CarrelloServlet.doGet: utente nullo!");
+
+		if (user.isLoggato()) {
+			
+			Carrello cart = loadCart(user);
+			cart.fetchArticoli();
 		}
+
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/cartPage.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 		String action = request.getParameter("action");
 		Utente user = (Utente) request.getSession().getAttribute("utente");
-		System.out.println(action);
 		
-		if(action.equals("removeItem")) {
+		IO.println("CarrelloServlet.doPost, action: " + action);
+		
+		if (user == null)
+			throw new IOException("CarrelloServlet.doPost: utente nullo!");
+		
+		Carrello carrello = user.getCarrello();
+		if (user.isLoggato()) {
 			
-				int idProdotto = Integer.parseInt(request.getParameter("idProdotto"));
-				user.getCarrello().removeItem(idProdotto);
-				if(user.getStato().equals("loggato")) {
-					try {
-						OggettoCarrello.removeItemFromCart(idProdotto, user.getCarrello().getIdCarrello());
-					} catch (SQLException e) {
-			
-						e.printStackTrace();
-					}
-					loadCart(user);
-					loadCartItems(user);
-				}
-			
+			carrello = loadCart(user);
+			carrello.fetchArticoli();
 		}
-		else if(action.equals("addItem")) {
+		
+		if (action.equals("removeItem")) {
+			
+			try {
+				
+				Prodotto prodotto = ProdottoDAO.doRetrieveByKey(Integer.parseInt(request.getParameter("idProdotto")));
+				carrello.removeProdotto(prodotto);
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (action.equals("addItem")) {
+			
 			Prodotto product = (Prodotto) request.getSession().getAttribute("prodotto");
 			int quantita = Integer.parseInt(request.getParameter("quantita"));
-			if(quantita < 1 || quantita >10) {
+			
+			if (quantita < 1 || quantita > 10) {
+				
 				System.out.println("Quantit√† sbagliata");
-			}
-			else {
-			boolean giaPresente = false; //indica se l'articolo √É≈° gi√É¬† presente.
-			
-			
-			
-			/* Controllo se l'articolo √® gi√† presente nel carrello. In caso positivo se ne aggiorna la quantit√† */
-			for(OggettoCarrello articolo: user.getCarrello().getArticoli()) {
-				int quantitaOld = articolo.getQuantita();
 				
-				if(articolo.getOggetto().getIdProdotto() == product.getIdProdotto()) {
-					articolo.setQuantita(quantitaOld + quantita);
-					if(user.getStato().equals("loggato")) {
-						try {
-							OggettoCarrelloDAO.doUpdateItemQuantity(user.getCarrello().getIdCarrello(), product.getIdProdotto(), quantitaOld + quantita);
-						} catch (SQLException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						loadCart(user);
-						loadCartItems(user);
-					}
-					giaPresente = true;
-				}
-			}
-			
-			/* In caso l'articolo non sia presente all'interno del carrello e quindi deve essere aggiunto. */
-			if(!giaPresente) {
-			OggettoCarrello articolo = new OggettoCarrello(product, quantita);
-				
-			user.getCarrello().addItem(articolo);
-			
-			System.out.println(user.getCarrello().getArticoli().size());
-				
-			if(user.getStato().equals("loggato")) {
+			} else {
+					
+				//se il prodotto Ë presente nel carrello...
 				try {
-					OggettoCarrello.addItemToCart(articolo, user.getCarrello().getIdCarrello());
-				} catch (SQLException e) {
-		
+					if (carrello.contieneProdotto(product))
+						
+						carrello.aggiornaQuantit‡Prodotto(product.getIdProdotto(), quantita); //..ne aggiorna la quantit‡
+					else
+						carrello.addProdotto(product, quantita); //..lo aggiunge
+					
+				} catch (Exception e) {
+					IO.println("CarrelloServlet: errore aggiorna quantit‡ prodotto");
 					e.printStackTrace();
 				}
-				loadCart(user);
-				loadCartItems(user);
 			}
-		}
+
+		} else if (action.equals("decreaseQuantity")) {
 			
-		}
-		}
-		else if(action.equals("decreaseQuantity")) {
-			int prodotto = Integer.parseInt(request.getParameter("idProdotto"));
+			int prodotto    = Integer.parseInt(request.getParameter("idProdotto"));
 			int quantitaOld = Integer.parseInt(request.getParameter("quantita"));
-		
-			if(quantitaOld > 1) {
-			int nuovaQuantita = user.getCarrello().diminuisciQuantita(prodotto);
-			if(user.getStato().equals("loggato")) {
-				try {
-					OggettoCarrelloDAO.doUpdateItemQuantity(user.getCarrello().getIdCarrello(), prodotto ,nuovaQuantita);
+
+			if (quantitaOld > 1) {
+				
+				try { 
+					carrello.aggiornaQuantit‡Prodotto(prodotto, -1);
+					
 				} catch (SQLException e) {
-		
+					IO.println("CarrelloServlet: errore aggiorna quantit‡ (-1) prodotto");
 					e.printStackTrace();
 				}
-				loadCart(user);
-				loadCartItems(user);
 			}
-			
-		}
-			
-		}
-		else if(action.equals("addQuantity")) {
-			
-			int prodotto = Integer.parseInt(request.getParameter("idProdotto"));
+
+		} else if (action.equals("addQuantity")) {
+
+			int prodotto    = Integer.parseInt(request.getParameter("idProdotto"));
 			int quantitaOld = Integer.parseInt(request.getParameter("quantita"));
-			
-			if(quantitaOld < 10) {
-			int nuovaQuantita = user.getCarrello().aumentaQuantita(prodotto);
-			if(user.getStato().equals("loggato")) {
+
+			if (quantitaOld < 10) {
+				
 				try {
-					OggettoCarrelloDAO.doUpdateItemQuantity(user.getCarrello().getIdCarrello(), prodotto ,nuovaQuantita);
+					carrello.aggiornaQuantit‡Prodotto(prodotto, 1);
+					
 				} catch (SQLException e) {
-		
+					IO.println("CarrelloServlet: errore aggiorna quantit‡ (1) prodotto");
 					e.printStackTrace();
 				}
-				loadCart(user);
-				loadCartItems(user);
 			}
 		}
-			
-		}
-		user.getCarrello().aggiornaPrezzoCarrello();
+		
 		response.sendRedirect("PostRedirectGetCartServlet");
-}
-
-
-
-	private void loadCart(Utente user){
-		try {
-			user.setCarrello(Carrello.recuperaCarrelloByUser(user.getEmail()));
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
-	private void loadCartItems(Utente user){
-		Carrello cart = user.getCarrello();
+	/** Carica e aggiunge il carrello all'utente */
+	private Carrello loadCart(Utente user) {
+
 		try {
-			cart.setArticoli(OggettoCarrello.recuperaArticoliByCarrello(cart.getIdCarrello()));
+
+			Carrello cart = Carrello.getCarrelloUtente(user);
+			user.setCarrello(cart);
+			
+			return cart;
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+
+			IO.println("CarrelloServlet: errore nel recupero del carrello utente!");
 			e.printStackTrace();
 		}
+
+		return user.getCarrello();
 	}
 }

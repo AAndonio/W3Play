@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Ordine;
 import bean.Utente;
 import model.OggettoOrdine;
-
+import util.IO;
 
 /**
  * Servlet implementation class orderServlet
@@ -23,43 +23,47 @@ import model.OggettoOrdine;
 @WebServlet("/orderServlet")
 public class OrdiniServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrdiniServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public OrdiniServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request,response);
-}
+		doPost(request, response);
+	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		IO.println("OrdiniServlet.doPost");
+
 		Utente user = (Utente) request.getSession().getAttribute("utente");
 		ArrayList<Ordine> ordini = new ArrayList<Ordine>();
 		try {
-			 ordini = Ordine.searchOrdine(user.getEmail());
-			 ordini = OggettoOrdine.recuperaOggetti(ordini);
+			ordini = Ordine.searchOrdine(user.getEmail());
+			ordini = OggettoOrdine.recuperaOggetti(ordini);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		user.setOrdini(ordini);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/customerPage.jsp");
 		dispatcher.forward(request, response);
-		}
-		
-		
-}
+	}
 
+}

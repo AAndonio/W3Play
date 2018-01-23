@@ -66,5 +66,6 @@ public class OggettoOrdineDAO {
 	//-------------------------------------------------------------------------------------
 
 	private static final String ADD_ITEM="INSERT INTO Processare VALUES (?,?,?)";
-	private static final String RETRIEVE_ORDER_ITEM = "SELECT X.idProdotto, X.Nome, X.Produttore, X.Piattaforma, X.Genere, X.Descrizione, X.Immagini, X.Prezzo,X.Disponibilita, X.DataUscita, X.linkVideo, P.Quantita  FROM Processare P JOIN Prodotto X ON (P.Prodotto = X.idProdotto) WHERE P.Ordine = ?";
+	//private static final String RETRIEVE_ORDER_ITEM = "SELECT X.idProdotto, X.Nome, X.Produttore, X.Piattaforma, X.Genere, X.Descrizione, X.Immagini, X.Prezzo,X.Disponibilita, X.DataUscita, X.linkVideo, P.Quantita  FROM Processare P JOIN Prodotto X ON (P.Prodotto = X.idProdotto) WHERE P.Ordine = ?";
+	private static final String RETRIEVE_ORDER_ITEM = "SELECT * FROM Processare P JOIN Prodotto X ON (P.Prodotto = X.idProdotto) WHERE P.Ordine = ?";
 }

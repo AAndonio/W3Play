@@ -112,6 +112,7 @@ public class GestioneProfiloServlet extends HttpServlet {
 	}
 
 	private void logout(Utente user, Amministratore adm, HttpServletRequest request) {
+		
 		if (user.getEmail() != null) {
 			user.setCognome(null);
 			user.setNome(null);

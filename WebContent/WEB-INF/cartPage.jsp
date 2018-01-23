@@ -1,5 +1,7 @@
+<%@page import="bean.Prodotto"%>
+<%@page import="util.Entry"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="model.OggettoCarrello , bean.Carrello, bean.Utente, java.util.Formatter, bean.Amministratore"%>
+    pageEncoding="UTF-8" import="bean.Carrello, bean.Utente, java.util.Formatter, bean.Amministratore"%>
     
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -128,28 +130,34 @@
     <div class="main-content">
         <div id="items-container">
             <h2>Carrello</h2>
-             <%Formatter formatter = new java.util.Formatter();
+             <% Formatter formatter = new java.util.Formatter();
+             	
+             	Carrello carrello = utente.getCarrello();
              
-             if(!utente.getCarrello().getArticoli().isEmpty()) {%>
-            
+             if(!carrello.carrelloVuoto()) { %>
            
-            	<%for(OggettoCarrello articolo: utente.getCarrello().getArticoli()) {%>
+            	<% for(Entry<Prodotto, Integer> entry: carrello.getListaArticoli()) { 
+            		
+            		Prodotto articolo = entry.getKey();
+            		int quantita = entry.getValue();
+            	%>
+            	
 	            <div class="item">
 	                
-	                    <img class="cart-item-img" src="<%=articolo.getOggetto().getImmagine()%>"/>
+	                    <img class="cart-item-img" src="<%=articolo.getImmagine()%>"/>
 	                    <div class="cart-item-info">
-	                        <h4><%=articolo.getOggetto().getNome()%></h4>
-	                        <span>di <%=articolo.getOggetto().getProduttore()%></span><br>
+	                        <h4><%=articolo.getNome()%></h4>
+	                        <span>di <%=articolo.getProduttore()%></span><br>
 	                        <form action="cartServlet" method="post" class="formine"> 
 	                        <button type="submit">Rimuovi</button>
 	                        <input type="hidden" name="action" value="removeItem">
-	                        <input type="hidden" name="idProdotto" value="<%=articolo.getOggetto().getIdProdotto()%>">
+	                        <input type="hidden" name="idProdotto" value="<%=articolo.getIdProdotto()%>">
 	                        </form>
 	                    </div>
 	             
 	                    
 	                    <div style="display:inline-block;" class="column-item">
-	                        <br>Prezzo <span style="margin-left:1em;">&euro;<%=articolo.getOggetto().getPrezzo()%></span>
+	                        <br>Prezzo <span style="margin-left:1em;">&euro;<%=articolo.getPrezzo()%></span>
 	                                 <br>
 	                     <div id="quantita-div"style="margin-top: 2em;">
 	                   <span>Quantit&agrave;</span>  
@@ -160,19 +168,19 @@
 		                    	<input style="display:inline-block;" class="quantity-button" type="submit" value="-"/>
 		                    
 		                    	<input type="hidden" name="action" value="decreaseQuantity"> 
-		                    	<input type="hidden" name="idProdotto" value="<%= articolo.getOggetto().getIdProdotto()%>"> 
-		                    	<input type="hidden" name="quantita" value="<%= articolo.getQuantita()%>">
+		                    	<input type="hidden" name="idProdotto" value="<%= articolo.getIdProdotto()%>"> 
+		                    	<input type="hidden" name="quantita" value="<%= quantita%>">
 		                    </div>
 	                   	</form>	
 	                    	
-	                        <span style="display:inline-block;" id="itemQuantity"><%=articolo.getQuantita()%></span>
+	                        <span style="display:inline-block;" id="itemQuantity"><%= quantita%></span>
 	                        
 	                        <form class="formine" style="display:inline-block;" action="cartServlet" method="post">
 	                        <div class="pulsante"  style="display:inline-block;">
 		                    	<input class="quantity-button" type="submit" value="+"/>
 		                  		<input type="hidden" name="action" value="addQuantity"> 
-		                    	<input type="hidden" name="idProdotto" value="<%= articolo.getOggetto().getIdProdotto()%>">
-		                    	<input type="hidden" name="quantita" value="<%= articolo.getQuantita()%>"> 
+		                    	<input type="hidden" name="idProdotto" value="<%= articolo.getIdProdotto()%>">
+		                    	<input type="hidden" name="quantita" value="<%= quantita%>"> 
 		                    </div>
 	                  </form>
 	                    </div>
@@ -185,7 +193,7 @@
 	    
         </div>
         <div id="cart-checkout">
-                <h3>Totale provvisiorio: &euro;<%=formatter.format("%.2f", utente.getCarrello().getPrezzoTotale())%></h3>
+                <h3>Totale provvisiorio: &euro;<%=formatter.format("%.2f", carrello.getPrezzoTotale())%></h3>
                 <a href="checkoutServlet">Vai al checkout</a>
         </div>
         <% } else {%>

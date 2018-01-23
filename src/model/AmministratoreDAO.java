@@ -97,7 +97,9 @@ public class AmministratoreDAO {
 		pstmt.close();
 		con.close();
 	}
-	public static void doDeleteAdmin(String email) throws SQLException{
+	
+	public static void doDeleteAdmin(String email) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();

@@ -7,7 +7,7 @@ import javax.swing.JOptionPane;
 
 public class DBConnection {
 
-	public static Connection getConnection() throws SQLException {
+	public static synchronized Connection getConnection() throws SQLException {
 		
 
 		Connection connection = null;

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,10 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.Carrello;
 import bean.Ordine;
+import bean.Prodotto;
 import bean.Utente;
-import model.OggettoCarrello;
 import model.OggettoOrdine;
+import util.Entry;
+import util.IO;
 
 /**
  * Servlet implementation class checkoutServlet
@@ -23,79 +27,98 @@ import model.OggettoOrdine;
 @WebServlet("/checkoutServlet")
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CheckoutServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public CheckoutServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Utente user = (Utente) request.getSession().getAttribute("utente");
 		String direzione = null;
-		if(user.getStato().equals("loggato")) {
+		if (user.getStato().equals("loggato")) {
 			direzione = "/WEB-INF/checkoutPage.jsp";
-		}
-		else {
+		} else {
 			direzione = "/WEB-INF/loginPage.jsp";
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(direzione);
 		dispatcher.forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utente user = (Utente) request.getSession().getAttribute("utente");
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		
+		Utente user = (Utente) request.getSession().getAttribute("utente");
 		String action = request.getParameter("action");
-		if(action.equals("riepilogo")) {
+
+		IO.println("CheckoutServlet.doPost: " + action);
+		
+		if (action.equals("riepilogo")) {
+			
+			Carrello carrello = user.getCarrello();
 			String carta = request.getParameter("payment");
+			
+			if (carta == null)
+				throw new IOException("CheckoutServlet.doPost: carta di credito nulla!");
+			
 			ArrayList<OggettoOrdine> articoli = new ArrayList<OggettoOrdine>();
 			Ordine ordine = null;
-			if(carta.equals("alternative")) {
-				ordine = new Ordine(user.getCarrello().getPrezzoTotale(), LocalDate.now(),request.getParameter("credit-card-alternative"), user.getEmail(),articoli);
-			}else {
-				ordine = new Ordine(user.getCarrello().getPrezzoTotale(), LocalDate.now(),carta, user.getEmail(),articoli);
-			}
 			
-			user.getOrdini().add(ordine);
-			
-			for(OggettoCarrello articolo: user.getCarrello().getArticoli()) {
-				articoli.add(new OggettoOrdine(articolo.getOggetto(), articolo.getQuantita()));
-				try {
-					articolo.getOggetto().vendi();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			if (carta.equals("alternative")) {
 				
+				ordine = new Ordine(carrello.getPrezzoTotale(), LocalDate.now(),
+						request.getParameter("credit-card-alternative"), user.getEmail(), articoli);
+			} else {
+				ordine = new Ordine(carrello.getPrezzoTotale(), LocalDate.now(), carta, user.getEmail(),
+						articoli);
 			}
+
+			user.getOrdini().add(ordine);
+				
+			//aggiungo gli oggetti nel carrello in ordine
+			List<Entry<Prodotto, Integer>> prodotti = carrello.getListaArticoli();
 			
+			prodotti.forEach((e) -> {
+				
+				Prodotto prodotto = e.getKey();
+				articoli.add(new OggettoOrdine(prodotto, e.getValue()));
+				
+				try {
+					prodotto.vendi();
+					
+				} catch (SQLException e1) {
+					
+					IO.println("CheckoutServlet.doPost: errore vendita articolo: " + prodotto.getIdProdotto() + " \n\n" + e1.getMessage());
+					e1.printStackTrace();
+				}
+			});
+
 			ordine.setArticoli(articoli);
-			
+
 			try {
 				ordine.setIdOrdine(Ordine.writeOrder(ordine));
 				OggettoOrdine.addItemByOrder(ordine);
-				
+
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				IO.println("CheckoutServlet.doPost: errore ordine:\n\n" + e.getMessage());
 				e.printStackTrace();
 			}
-			user.getCarrello().setArticoli(new ArrayList<OggettoCarrello>());
-			try {
-				OggettoCarrello.removeItemFromCart(user.getCarrello().getIdCarrello());
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			//articoli venduti, ora si svuota il carrello
+			user.getCarrello().svuota();
 
 			response.sendRedirect("PostRedirectGetCheckoutServlet");
 		}

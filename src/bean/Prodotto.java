@@ -1,5 +1,6 @@
 package bean;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -8,7 +9,9 @@ import java.util.ArrayList;
 import model.ProdottoDAO;
 import search.Findable;
 
-public class Prodotto implements Findable {
+public class Prodotto implements Serializable, Findable, Comparable<Prodotto> {
+	
+	private static final long serialVersionUID = -1431930434219319963L;
 
 	public Prodotto() {}
 	
@@ -115,28 +118,34 @@ public class Prodotto implements Findable {
 	public void setIdProdotto(int idProdotto) {
 		this.idProdotto = idProdotto;
 	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	public void setProduttore(String produttore) {
 		this.produttore = produttore;
 	}
+	
 	public void setPiattaforma(String piattaforma) {
 		this.piattaforma = piattaforma;
 	}
+	
 	public void setGenere(String genere) {
 		this.genere = genere;
 	}
+	
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
 	}
+	
 	public void setImmagine(String immagine) {
 		this.immagine = immagine;
 	}
+	
 	public void setPrezzo(float prezzo) {
 		this.prezzo = prezzo;
 	}
-	
 	
 	
 	public static ArrayList<Prodotto> searchProduct(String prodotto) throws SQLException{
@@ -187,6 +196,45 @@ public class Prodotto implements Findable {
 		
 		return nome; 
 	}
-	
 
+	/* (non-Javadoc) @see java.lang.Object#hashCode() */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((genere == null) ? 0 : genere.hashCode());
+		result = prime * result + idProdotto;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result + ((produttore == null) ? 0 : produttore.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc) @see java.lang.Object#equals(java.lang.Object) */
+	@Override
+	public boolean equals(Object obj) {
+		
+		if (this == obj)
+			return true;
+		
+		if (obj == null)
+			return false;
+		
+		if (getClass() != obj.getClass())
+			return false;
+		
+		Prodotto other = (Prodotto) obj;
+		if (idProdotto != other.idProdotto)
+			return false;
+		
+		return true;
+	}
+
+	@Override
+	public int compareTo(Prodotto o) {
+		
+		Integer id1 = idProdotto;
+		Integer id2 = o.idProdotto;
+		
+		return id1.compareTo(id2);
+	}
 }

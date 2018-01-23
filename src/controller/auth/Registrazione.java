@@ -1,6 +1,8 @@
 package controller.auth;
 
 import model.UtenteDAO;
+import util.IO;
+
 import java.io.IOException;
 import java.sql.SQLException;
 
@@ -53,15 +55,17 @@ public class Registrazione extends HttpServlet {
 		utente.setCitta(citta);
 		
 		try {
-			UtenteDAO.doSave(utente);
-			Carrello.creaCarrello(0, 0, email);
-		} catch (SQLException e) {
 			
+			UtenteDAO.doSave(utente);
+			
+		} catch (SQLException e) {
+			IO.println("Registrazione: errore salvataggio utente o creazione del carrello!");
+			e.printStackTrace();
 		}
-		
 		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login");
 		dispatcher.forward(request, response);
+		
 	} else {
 		System.out.println("Qualcosa di sbagliato!");
 	}

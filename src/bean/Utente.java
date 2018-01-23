@@ -7,7 +7,7 @@ import model.UtenteDAO;
 
 public class Utente {
 
-    public Utente() {}
+    public Utente() { setCarrello(new Carrello()); }
     
     public Utente(String email, String nome, String cognome, String password, String via, String civico, String cap, String citta) {
         this.email = email;
@@ -18,6 +18,8 @@ public class Utente {
         this.civico = civico;
         this.cap = cap;
         this.citta = citta;
+        
+        setCarrello(new Carrello());
     }
     
     public String getEmail() {
@@ -102,6 +104,7 @@ public class Utente {
 
     public void setCarrello(Carrello carrello) {
         this.carrello = carrello;
+        this.carrello.setUtente(this);
     }
 
     public ArrayList<Ordine> getOrdini() {
@@ -116,6 +119,11 @@ public class Utente {
         return stato;
     }
 
+    public boolean isLoggato() {
+    	
+    	return "loggato".equals(stato);
+    }
+    
     public void setStato(String stato) {
         this.stato = stato;
     }
