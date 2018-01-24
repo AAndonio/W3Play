@@ -2,6 +2,7 @@ package bean;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import model.UtenteDAO;
 
@@ -107,11 +108,11 @@ public class Utente {
         this.carrello.setUtente(this);
     }
 
-    public ArrayList<Ordine> getOrdini() {
+    public List<Ordine> getOrdini() {
         return ordini;
     }
 
-    public void setOrdini(ArrayList<Ordine> ordini) {
+    public void setOrdini(List<Ordine> ordini) {
         this.ordini = ordini;
     }
 
@@ -176,5 +177,5 @@ public class Utente {
 
     private ArrayList<CartaDiCredito> carte = new ArrayList<>();
     private Carrello carrello = new Carrello();
-    private ArrayList<Ordine> ordini = null;
+    private List<Ordine> ordini = null;
 }

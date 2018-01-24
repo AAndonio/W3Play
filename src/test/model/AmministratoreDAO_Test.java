@@ -7,17 +7,13 @@ import java.sql.SQLException;
 import org.junit.*;
 
 import bean.Amministratore;
-import bean.Amministratore.Ruolo;
 import bean.Utente;
 import model.AmministratoreDAO;
 import model.UtenteDAO;
 import utils.DBConnection;
 
-import java.sql.Statement;
-
 public class AmministratoreDAO_Test {
 
-	private static final Ruolo Backoffice = null;
 	private static Amministratore admin = null;
 	private static Utente user = null;
 	private static String QRY = "INSERT INTO amministratore (Email, Ruolo) VALUES (?, ?);";

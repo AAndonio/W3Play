@@ -4,6 +4,7 @@ package controller.ordini;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.Ordine;
 import bean.Utente;
-import model.OggettoOrdine;
 import util.IO;
 
 /**
@@ -29,7 +29,6 @@ public class OrdiniServlet extends HttpServlet {
 	 */
 	public OrdiniServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -38,7 +37,7 @@ public class OrdiniServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		doPost(request, response);
 	}
 
@@ -52,16 +51,18 @@ public class OrdiniServlet extends HttpServlet {
 		IO.println("OrdiniServlet.doPost");
 
 		Utente user = (Utente) request.getSession().getAttribute("utente");
-		ArrayList<Ordine> ordini = new ArrayList<Ordine>();
+		List<Ordine> ordini = new ArrayList<Ordine>();
+		
 		try {
-			ordini = Ordine.searchOrdine(user.getEmail());
-			ordini = OggettoOrdine.recuperaOggetti(ordini);
+			ordini = Ordine.searchOrdine(user);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			IO.println("OrdiniServlet.doPost: errore recupero ordini utente!");
 			e.printStackTrace();
 		}
 
 		user.setOrdini(ordini);
+		
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/customerPage.jsp");
 		dispatcher.forward(request, response);
 	}

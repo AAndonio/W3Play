@@ -48,7 +48,7 @@ public class TestProdottoDAO {
 
 
 	@Test
-	public void TestDoSave() {
+	public void TestDoSave() throws SQLException {
 		
 			ProdottoDAO.doSave(articolo);
 		
@@ -82,7 +82,7 @@ public class TestProdottoDAO {
 	
 
 	@Test
-	public void TestDoUpdate() {
+	public void TestDoUpdate() throws SQLException {
 			
 			articolo.setNome("product-name2");
 			articolo.setProduttore("product-producer2");
@@ -114,7 +114,7 @@ public class TestProdottoDAO {
 	
 
 	@Test
-	public void TestDoRetrieveByKey() {    
+	public void TestDoRetrieveByKey() throws SQLException {    
 		
         	Prodotto p=ProdottoDAO.doRetrieveByKey(articolo.getIdProdotto());	
 			Assert.assertEquals(articolo.getNome(),p.getNome());

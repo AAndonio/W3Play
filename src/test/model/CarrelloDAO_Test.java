@@ -6,8 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -19,7 +17,6 @@ import bean.Utente;
 import model.CarrelloDAO;
 import model.ProdottoDAO;
 import model.UtenteDAO;
-import util.IO;
 import utils.DBConnection;
 
 /**

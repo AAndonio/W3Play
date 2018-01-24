@@ -1,7 +1,9 @@
+<%@page import="java.util.List"%>
+<%@page import="bean.Prodotto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ page import="bean.CartaDiCredito, java.util.ArrayList, bean.Ordine, model.OggettoOrdine, java.util.Formatter"%>
+<%@ page import="bean.CartaDiCredito, java.util.ArrayList, bean.Ordine, java.util.Formatter"%>
     
 <jsp:useBean id="utente" class="bean.Utente" scope="session" />
 
@@ -183,7 +185,7 @@
           <div id="customer-orders">
             <h2> I tuoi ordini </h2>
             <div class="orders">
-				<% 	ArrayList<Ordine> ordini = utente.getOrdini();
+				<% 	List<Ordine> ordini = utente.getOrdini();
 				if(ordini != null) {
 					for (Ordine o: ordini) { 
 					 Formatter formatter = new java.util.Formatter();%>
@@ -195,24 +197,23 @@
                 </div>
                 <div class="order-items">
                   <% 
-                  ArrayList<OggettoOrdine> oggOrdine = o.getArticoli();
+                  List<Prodotto> articoli = o.getArticoli();
                  
-                  if(oggOrdine != null) {	
-                  for (OggettoOrdine ogg: oggOrdine) { %>
+                  if (articoli != null) {	
+                	  
+                  for (Prodotto articolo: articoli) { %>
                   	<div class="item">
-                    <img src="<%=ogg.getProdotto().getImmagine() %>"><h5><%= ogg.getProdotto().getNome() %></h5>
+                    <img src="<%= articolo.getImmagine() %>"><h5><%= articolo.getNome() %></h5>
                      </div>
-                    <%} 
-                   }else System.out.println("ciao");%>
+                    <% } 
+                   } %>
                  
                 </div>
                 </div>
-               <%}
-			  } else {%><span class ="information order-number">Non ci sono ordini effettuati</span><%} %>
+               <% }
+			  } else { %><span class ="information order-number">Non ci sono ordini effettuati</span><% } %>
 
           </div>
-          
-         
           
           <div id="password-div" class="edit-attributes-div">
               <div><form class="form" name="changePass" action="editProfileInfo" id="password" method="post" onsubmit="return validateChangePassword('<%=utente.getPassword()%>');">

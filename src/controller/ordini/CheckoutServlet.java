@@ -17,7 +17,7 @@ import bean.Carrello;
 import bean.Ordine;
 import bean.Prodotto;
 import bean.Utente;
-import model.OggettoOrdine;
+
 import util.Entry;
 import util.IO;
 
@@ -74,7 +74,7 @@ public class CheckoutServlet extends HttpServlet {
 			if (carta == null)
 				throw new IOException("CheckoutServlet.doPost: carta di credito nulla!");
 			
-			ArrayList<OggettoOrdine> articoli = new ArrayList<OggettoOrdine>();
+			ArrayList<Prodotto> articoli = new ArrayList<Prodotto>();
 			Ordine ordine = null;
 			
 			if (carta.equals("alternative")) {
@@ -94,7 +94,7 @@ public class CheckoutServlet extends HttpServlet {
 			prodotti.forEach((e) -> {
 				
 				Prodotto prodotto = e.getKey();
-				articoli.add(new OggettoOrdine(prodotto, e.getValue()));
+				articoli.add(prodotto);
 				
 				try {
 					prodotto.vendi();
@@ -110,10 +110,9 @@ public class CheckoutServlet extends HttpServlet {
 
 			try {
 				ordine.setIdOrdine(Ordine.writeOrder(ordine));
-				OggettoOrdine.addItemByOrder(ordine);
 
 			} catch (SQLException e) {
-				IO.println("CheckoutServlet.doPost: errore ordine:\n\n" + e.getMessage());
+				IO.println("CheckoutServlet.doPost: errore con writeOrder:\n\n" + e.getMessage());
 				e.printStackTrace();
 			}
 			

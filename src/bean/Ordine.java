@@ -3,16 +3,16 @@ package bean;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
-import model.OggettoOrdine;
 import model.OrdineDAO;
 
 public class Ordine {
-
+	
 	public Ordine() {}
 	
-	public Ordine(int idOrdine, float costo, LocalDate dataAcquisto,String carta, String utente, ArrayList<OggettoOrdine> articoli)
-	{
+	public Ordine(int idOrdine, float costo, LocalDate dataAcquisto, String carta, String utente,
+			List<Prodotto> articoli) {
 		this.idOrdine = idOrdine;
 		this.costo = costo;
 		this.dataAcquisto = dataAcquisto;
@@ -20,25 +20,23 @@ public class Ordine {
 		this.articoli = articoli;
 		this.utente = utente;
 	}
-	
-	public Ordine(int idOrdine, float costo, LocalDate dataAcquisto,String carta, String utente)
-	{
+
+	public Ordine(int idOrdine, float costo, LocalDate dataAcquisto, String carta, String utente) {
 		this.idOrdine = idOrdine;
 		this.costo = costo;
 		this.dataAcquisto = dataAcquisto;
 		this.carta = carta;
 		this.utente = utente;
 	}
-	
-	public Ordine( float costo, LocalDate dataAcquisto,String carta, String utente, ArrayList<OggettoOrdine> articoli)
-	{
+
+	public Ordine(float costo, LocalDate dataAcquisto, String carta, String utente, List<Prodotto> articoli) {
 		this.costo = costo;
 		this.dataAcquisto = dataAcquisto;
 		this.carta = carta;
 		this.articoli = articoli;
 		this.utente = utente;
 	}
-	
+
 	public int getIdOrdine() {
 		return idOrdine;
 	}
@@ -62,7 +60,6 @@ public class Ordine {
 	public void setCarta(String carta) {
 		this.carta = carta;
 	}
-	
 
 	public String getUtente() {
 		return utente;
@@ -72,11 +69,11 @@ public class Ordine {
 		this.utente = utente;
 	}
 
-	public ArrayList<OggettoOrdine> getArticoli() {
+	public List<Prodotto> getArticoli() {
 		return articoli;
 	}
 
-	public void setArticoli(ArrayList<OggettoOrdine> articoli) {
+	public void setArticoli(List<Prodotto> articoli) {
 		this.articoli = articoli;
 	}
 
@@ -87,19 +84,18 @@ public class Ordine {
 	public void setDataAcquisto(LocalDate dataAcquisto) {
 		this.dataAcquisto = dataAcquisto;
 	}
-	
+
 	public static int writeOrder(Ordine ordine) throws SQLException {
 		return OrdineDAO.inoltraOrdine(ordine);
 	}
-	
-	public static ArrayList<Ordine> searchOrdine(String utente) throws SQLException {
+
+	public static List<Ordine> searchOrdine(Utente utente) throws SQLException {
 		return OrdineDAO.doRetrieveByUtente(utente);
 	}
-	
-	private  int idOrdine;
-	private float costo;
-	private  String carta, utente;
-	private  LocalDate dataAcquisto;
-	private ArrayList<OggettoOrdine> articoli;
 
+	private int idOrdine;
+	private float costo;
+	private String carta, utente;
+	private LocalDate dataAcquisto;
+	private List<Prodotto> articoli = new ArrayList<>();
 }
