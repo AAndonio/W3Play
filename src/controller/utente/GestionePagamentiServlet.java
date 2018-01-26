@@ -11,22 +11,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.CartaDiCredito;
-import bean.Amministratore;
 import bean.Utente;
 
 /**
- * Servlet implementation class editUserInfo
+ * Servlet per la gestione delle Carte di credito dell'utente
+ * @author Antonio
  */
 @WebServlet("/editCartInfo")
 public class GestionePagamentiServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public GestionePagamentiServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,7 +32,7 @@ public class GestionePagamentiServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -91,6 +88,7 @@ public class GestionePagamentiServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/* (non-Javadoc) */
 	private void aggiornaCartaUtente(String numeroVecchio, CartaDiCredito nuova, Utente utente) {
 
 		try {
@@ -106,6 +104,7 @@ public class GestionePagamentiServlet extends HttpServlet {
 		loadCreditCard(utente);
 	}
 
+	/* (non-Javadoc) */
 	private void loadCreditCard(Utente user) {
 		
 		try {

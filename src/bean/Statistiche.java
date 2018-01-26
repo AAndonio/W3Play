@@ -7,7 +7,6 @@ import model.StatisticheDAO;
 /**
  * Statistiche di sistema
  * @author Luca
- *
  */
 public class Statistiche {
 	
@@ -35,6 +34,9 @@ public class Statistiche {
 		this.avgOrdiniUtente = avgOrdiniUtente;
 	}
 	
+	/**
+	 * Calcola le statistiche dai dati presenti nel database
+	 */
 	public void aggiorna() {
 		
 		try {
@@ -93,6 +95,7 @@ public class Statistiche {
 		this.avgOrdiniUtente = avgOrdiniUtente;
 	}
 	
+	/* (non-Javadoc) @see java.lang.Object#toString() */
 	@Override
 	public String toString() {
 		

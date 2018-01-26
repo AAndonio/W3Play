@@ -6,6 +6,10 @@ import java.util.List;
 
 import model.UtenteDAO;
 
+/**
+ * Utente
+ * @author Antonio
+ */
 public class Utente {
 
     public Utente() { setCarrello(new Carrello()); }
@@ -134,35 +138,77 @@ public class Utente {
         this.stato = stato;
     }
     
+    /**
+     * Controlla che le credenziali inserite corrispondano ad un account utente
+     * @param email: email utente
+     * @param password: password utente
+     * @return Utente: account utente trovato
+     * @throws SQLException
+     */
     public static Utente controllaCredenziali(String email, String password) throws SQLException {
         return UtenteDAO.Check(email, password);
     }
     
+    /**
+     * Aggiorna l'indirizzo dell'utente
+     * @param via: nuova via
+     * @param numeroCivico: nuovo numero civico
+     * @param cap: nuovo cap
+     * @param citta: nuova città
+     * @param utente: utente di cui aggiornare l'indirizzo
+     * @throws SQLException
+     */
     public static void aggiornaIndirizzo(String via,String numeroCivico, String cap, String citta, String utente) throws SQLException{
     	UtenteDAO.doUpdateAddress( via, numeroCivico,  cap,  citta,  utente);
     }
     
+    /**
+     * @param email: email di un account utente
+     * @return boolean: true se l'email corrisponde ad un account utente, false altrimenti
+     * @throws SQLException
+     */
     public static boolean checkEmail(String email) throws SQLException {
     	return UtenteDAO.checkEmail(email);
     }
     
+    /**
+     * Aggiorna la password dell'utente
+     * @param password: nuova password
+     * @throws SQLException
+     */
     public void aggiornaPassword(String password) throws SQLException {
         UtenteDAO.doUpdatePassword(password, this);
     }
     
+    /**
+     * Aggiorna l'email dell'utente
+     * @param email: nuova email
+     * @throws SQLException
+     */
     public void aggiornaEmail(String email) throws SQLException {
     	UtenteDAO.doUpdateEmail(email, this);
     }
+    
+    /**
+     * Elimina l'account utente
+     * @param email: email dell'account da eliminare
+     * @throws SQLException
+     */
     public void eliminaUtente(String email) throws SQLException {
     	UtenteDAO.doDeleteUser(email);
     }
+    
+    /**
+     * Recupera un utente a partire dalla sua email
+     * @param user: email utente
+     * @return Utente: account utente trovato
+     * @throws SQLException
+     */
     public Utente getPass(String user) throws SQLException{
     	return UtenteDAO.doRetrieveByKey(user);
     	
     }
 
-    
-    
     /* (non-Javadoc) @see java.lang.Object#toString() */
 	@Override
 	public String toString() {

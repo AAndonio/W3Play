@@ -16,7 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Carrello;
 import bean.Utente;
 
-
+/**
+ * Servlet per la registrazione di un account utente
+ * @author Antonio
+ */
 @WebServlet("/regServlet")
 public class Registrazione extends HttpServlet {
 	

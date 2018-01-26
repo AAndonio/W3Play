@@ -18,6 +18,10 @@ import model.ProdottoDAO;
 import model.UtenteDAO;
 import utils.DBConnection;
 
+/**
+ * Classe di test per {@link OrdineDAO}
+ * @author Augusto
+ */
 public class TestOrdineDAO {
 	
 	private Ordine ordine;

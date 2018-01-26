@@ -18,7 +18,8 @@ import bean.Utente;
 import util.IO;
 
 /**
- * Servlet implementation class orderServlet
+ * Servlet per la gestione degli ordini
+ * @author Alfonso
  */
 @WebServlet("/orderServlet")
 public class OrdiniServlet extends HttpServlet {

@@ -7,6 +7,10 @@ import java.util.List;
 
 import model.OrdineDAO;
 
+/**
+ * Ordine utente
+ * @author Antonio
+ */
 public class Ordine {
 	
 	public Ordine() {}
@@ -84,11 +88,23 @@ public class Ordine {
 	public void setDataAcquisto(LocalDate dataAcquisto) {
 		this.dataAcquisto = dataAcquisto;
 	}
-
+	
+	/**
+	 * Inoltra l'ordine dell'utente (quando l'utente completa l'acquisto)
+	 * @param ordine: Ordine dell'utente
+	 * @return int: codice di successo
+	 * @throws SQLException
+	 */
 	public static int writeOrder(Ordine ordine) throws SQLException {
 		return OrdineDAO.inoltraOrdine(ordine);
 	}
-
+	
+	/**
+	 * Trova tutti gli ordini effettuati da un utente
+	 * @param utente: utente di cui si voglione recuperare gli ordini
+	 * @return List<Ordine>: lista di ordini
+	 * @throws SQLException
+	 */
 	public static List<Ordine> searchOrdine(Utente utente) throws SQLException {
 		return OrdineDAO.doRetrieveByUtente(utente);
 	}

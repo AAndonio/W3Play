@@ -17,7 +17,9 @@ import bean.Prodotto;
 import model.ProdottoDAO;
 
 /**
- * Servlet implementation class productServlet
+ * Servlet per l'aggiunta/rimozione dei prodotti nel catalogo, 
+ * e ricerca dei prodotto nell varie categorie (ultimi arrivi, piu venduti..).
+ * @author Augusto
  */
 @WebServlet("/productServlet")
 @MultipartConfig
@@ -189,6 +191,7 @@ public class ProdottoServlet extends HttpServlet {
 
 	}
 
+	/* (non-Javadoc) */
 	private static Prodotto cercaProdotto(int id, ArrayList<Prodotto> risultati) {
 		Prodotto prod = new Prodotto();
 		for (Prodotto p : risultati) {
@@ -197,5 +200,4 @@ public class ProdottoServlet extends HttpServlet {
 		}
 		return prod;
 	}
-
 }

@@ -8,6 +8,12 @@ import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
+import controller.auth.RecuperoPassword;
+
+/**
+ * Test per {@link RecuperoPassword}
+ * @author Luca
+ */
 public class RecuperoPasswordTest {
 	
 	private WebDriver driver;
@@ -94,15 +100,6 @@ public class RecuperoPasswordTest {
 		
 		if (!"".equals(verificationErrorString)) {
 			fail(verificationErrorString);
-		}
-	}
-
-	private boolean isElementPresent(By by) {
-		try {
-			driver.findElement(by);
-			return true;
-		} catch (NoSuchElementException e) {
-			return false;
 		}
 	}
 	

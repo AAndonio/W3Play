@@ -5,10 +5,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-
 import model.ProdottoDAO;
 import search.Findable;
 
+/**
+ * Prodotto, rappresenta un articolo presente nel catalogo e che può essere acquistato da un utente
+ * @author Augusto
+ */
 public class Prodotto implements Serializable, Findable, Comparable<Prodotto> {
 	
 	private static final long serialVersionUID = -1431930434219319963L;
@@ -47,8 +50,6 @@ public class Prodotto implements Serializable, Findable, Comparable<Prodotto> {
 		this.dataUscita = dataUscita;
 		this.linkVideo=linkVideo;
 	}
-	
-	
 	
 	public int getVenduti() {
 		return venduti;
@@ -114,7 +115,6 @@ public class Prodotto implements Serializable, Findable, Comparable<Prodotto> {
 		return prezzo;
 	}
 
-	
 	public void setIdProdotto(int idProdotto) {
 		this.idProdotto = idProdotto;
 	}
@@ -147,50 +147,99 @@ public class Prodotto implements Serializable, Findable, Comparable<Prodotto> {
 		this.prezzo = prezzo;
 	}
 	
-	
-	public static ArrayList<Prodotto> searchProduct(String prodotto) throws SQLException{
-		return ProdottoDAO.search(prodotto);
+	/**
+	 * Ricerca una serie di prodotti all'interno del database
+	 * @param searchQuery: query di ricerca inserita dell'utente
+	 * @return ArrayList<Prodotto>: lista dei prodotti trovati
+	 * @throws SQLException
+	 */
+	public static ArrayList<Prodotto> searchProduct(String searchQuery) throws SQLException{
+		return ProdottoDAO.search(searchQuery);
 	}
 	
+	/**
+	 * Recupera gli ultimi prodotti inseriti nel database
+	 * @return ArrayList<Prodotto>: lista di prodotti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Prodotto> ultimiArrivi() throws SQLException {
 		return ProdottoDAO.ultimiArrivi();
 	}
-
+	
+	/**
+	 * Recupera i prodotti più venduti
+	 * @return ArrayList<Prodotto>: lista di prodotti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Prodotto> piuVenduti() throws SQLException {
 		return ProdottoDAO.piuVenduti();
 	}
 	
+	/**
+	 * Cerca un prodotto dal menu
+	 * @param ProdOrPiatt: prodotto o piattaforma
+	 * @param nome: nome del menu
+	 * @return ArrayList<Prodotto>: lista di prodotti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Prodotto> searchFromMenuNav(String ProdOrPiatt, String nome) throws SQLException {
 		return ProdottoDAO.searchFromMenuNav(ProdOrPiatt,nome);
 	}
 	
+	/**
+	 * Cerca i prodotti presenti nel menu delle console
+	 * @param nome: nome del prodotto cercato
+	 * @return ArrayList<Prodotto>: lista di prodotti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Prodotto> searchFromMenuConsole(String nome) throws SQLException {
 		return ProdottoDAO.searchFromMenuConsole(nome);
 	}
+	
+	/**
+	 * Cerca i prodotti presenti nel menu giochi
+	 * @param ProdOrPiatt: prodotto o piattaforma
+	 * @return ArrayList<Prodotto>: lista di prodotti
+	 * @throws SQLException
+	 */
 	public static ArrayList<Prodotto> searchFromMenuGiochi(String ProdOrPiatt) throws SQLException {
 		return ProdottoDAO.searchFromMenuGiochi(ProdOrPiatt);
 	}
 	
+	/**
+	 * Aggiunge un nuovo prodotto al catalogo
+	 * @param prodotto: prodotto da aggiungere
+	 * @throws SQLException
+	 */
 	public static void addProduct(Prodotto prodotto) throws SQLException{
 		ProdottoDAO.doSave(prodotto);
 	}
 	
+	/**
+	 * Aggiorna un prodotto
+	 * @param prodotto: prodotto da aggiornare
+	 * @throws SQLException
+	 */
 	public static void updateProduct(Prodotto prodotto) throws SQLException{
 		ProdottoDAO.doUpdate(prodotto);
 	}
 	
+	/**
+	 * Acquista un prodotto
+	 * @throws SQLException
+	 */
 	public void vendi() throws SQLException {
 		disponibilita--;
 		venduti++;
 		ProdottoDAO.vendi(this);
 	}
 
-
 	private int idProdotto, disponibilita, venduti;
 	private String nome, produttore, piattaforma, genere, descrizione, immagine, linkVideo;
 	private float prezzo;
 	private LocalDate dataUscita;
 	
+	/* (non-Javadoc) */
 	@Override
 	public String getIndex() {
 		
@@ -228,7 +277,8 @@ public class Prodotto implements Serializable, Findable, Comparable<Prodotto> {
 		
 		return true;
 	}
-
+	
+	/* (non-Javadoc) @see java.lang.Comparable#compareTo(java.lang.Object) */
 	@Override
 	public int compareTo(Prodotto o) {
 		

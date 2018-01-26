@@ -14,6 +14,10 @@ import bean.Amministratore;
 import bean.Prodotto;
 import bean.Utente;
 
+/**
+ * Homepage del sito, carica i prodotti in ultimi arrivi, e più venduti oltre a inizializzare utente e amministratore
+ * @author Antonio
+ */
 @WebServlet("/homepage")
 public class HomepageServlet extends HttpServlet {
 	
@@ -69,7 +73,7 @@ public class HomepageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	
 		doPost(request, response);
 	}
 }

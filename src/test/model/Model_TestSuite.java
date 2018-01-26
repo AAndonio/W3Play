@@ -14,6 +14,11 @@ import org.junit.runners.Suite.SuiteClasses;
 	TestUtenteDAO.class,
 	TestProdottoDAO.class
 })
+
+/**
+ * Test suite contentente i test del model
+ * @author Augusto
+ */
 public class Model_TestSuite {
 
 }

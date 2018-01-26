@@ -14,10 +14,19 @@ import bean.Prodotto;
 import util.IO;
 import utils.DBConnection;
  
+/**
+ * Classe DAO per {@link Prodotto}
+ * @author Antonio
+ */
 public class ProdottoDAO {
  
     private ProdottoDAO(){}
-   
+    
+    /**
+     * Salva il prodotto nel database
+     * @param p: {@link Prodotto}
+     * @throws SQLException
+     */
     public static void doSave(Prodotto p) throws SQLException
     {
         Connection con = null;
@@ -43,10 +52,14 @@ public class ProdottoDAO {
         pstmt.executeUpdate();
        
         pstmt.close();
-        con.close();
-           
+        con.close();  
     }
    
+    /**
+     * Aggiorna i dati del prodotto
+     * @param p: {@link Prodotto}
+     * @throws SQLException
+     */
     public static void doUpdate(Prodotto p) throws SQLException
     {
         Connection con = null;
@@ -71,13 +84,17 @@ public class ProdottoDAO {
         pstmt.setInt(12, p.getIdProdotto());
        
         pstmt.executeUpdate();
-        System.out.println("Nella DAOOOOOO");
        
         pstmt.close();
         con.close();
-           
     }
    
+    /**
+     * recupera un prodotto a partire dal suo id
+     * @param idProdotto: id del prodotto da recuperare
+     * @return Prodotto: {@link Prodotto}
+     * @throws SQLException
+     */
     public static Prodotto doRetrieveByKey(int idProdotto) throws SQLException
     {
         String sql = "SELECT * FROM prodotto WHERE idProdotto = ?";
@@ -100,7 +117,13 @@ public class ProdottoDAO {
            
     }
       
-    //SEARCH
+    /**
+     * Effettua la ricerca dei prodotti.
+     * @param query: query di ricerca immessa dall'utente
+     * @return ArrayList<Prodotto>: una lista di prodotti
+     * @throws SQLException
+     * @author Luca
+     */
     public static ArrayList<Prodotto> search(String query) throws SQLException{
        
         Connection con = null;
@@ -112,19 +135,18 @@ public class ProdottoDAO {
         //retrive products
         //-------------------------------------------------------------------------
         ResultSet rs = pstmt.executeQuery();
-       
-        List<Findable> list = new ArrayList<>();  //List<Prodotto>
+      
+        List<Findable> list = new ArrayList<>();
        
         try {
- 
             while (rs.next()) {
- 
                 Prodotto p = new Prodotto(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getString(7), rs.getFloat(8), rs.getInt(9), rs.getDate(10).toLocalDate(), rs.getString(12));
                 list.add(p);
             }
  
         } catch (Exception e) {
             IO.err("ERROR", e.getMessage());
+            e.printStackTrace();
         }
         //-------------------------------------------------------------------------
        
@@ -145,7 +167,12 @@ public class ProdottoDAO {
        
         return prodotti;
     }
-   
+    
+    /**
+     * Recupera gli ultimi prodotti aggiungi al catalogo
+     * @return ArrayList<Prodotto>: lista di prodotti
+     * @throws SQLException
+     */
     public static ArrayList<Prodotto> ultimiArrivi() throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -162,7 +189,12 @@ public class ProdottoDAO {
         return risultati;
        
     }
-   
+    
+    /**
+     * Recupera i prodotti più venduti
+     * @return ArrayList<Prodotto>: lista di prodotti
+     * @throws SQLException
+     */
     public static ArrayList<Prodotto> piuVenduti() throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -179,7 +211,14 @@ public class ProdottoDAO {
         return risultati;
        
     }
-   
+    
+    /**
+     * Cerca i prodotti dal menu navigazionale
+     * @param ProdOrPiatt: nome produttore o piattaforma
+     * @param nome: nome produttore
+     * @return ArrayList<Prodotto>: lista di prodotti
+     * @throws SQLException
+     */
     public static ArrayList<Prodotto> searchFromMenuNav(String ProdOrPiatt, String nome) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -201,6 +240,12 @@ public class ProdottoDAO {
         return risultati;
     }
    
+    /**
+     * Cerca i prodotti dal menu delle console
+     * @param nome: nome prodotto
+     * @return ArrayList<Prodotto>: lista di prodotti
+     * @throws SQLException
+     */
     public static ArrayList<Prodotto> searchFromMenuConsole(String nome) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -221,6 +266,12 @@ public class ProdottoDAO {
         return risultati;
     }
    
+    /**
+     * Cerca un prodotto dal menu dei videogiochi
+     * @param ProdOrPiatt: produttore o piattaforma
+     * @return ArrayList<Prodotto>: lista di prodotti
+     * @throws SQLException
+     */
     public static ArrayList<Prodotto> searchFromMenuGiochi(String ProdOrPiatt) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -241,6 +292,11 @@ public class ProdottoDAO {
         return risultati;
     }
    
+    /**
+     * Vende il prodotto specificato
+     * @param prod: {@link Prodotto}
+     * @throws SQLException
+     */
     public static void vendi(Prodotto prod) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -257,6 +313,11 @@ public class ProdottoDAO {
         con.close();         
     }
    
+    /**
+     * Rimuove un prodotto dal catalogo
+     * @param idProd: id del prodotto da rimuovere
+     * @throws SQLException
+     */
     public static void removeProduct(int idProd) throws SQLException{
         Connection con = null;
         PreparedStatement pstmt = null;
@@ -276,7 +337,9 @@ public class ProdottoDAO {
     //-------------------------------------------------------------------------------------
     //-- DCS
     //-------------------------------------------------------------------------------------
-    public static Prodotto converti(ResultSet rs) throws SQLException
+    
+    /* (non-Javadoc) */
+    private static Prodotto converti(ResultSet rs) throws SQLException
     {
         Prodotto p  = null;
         if(rs.next())
@@ -284,7 +347,8 @@ public class ProdottoDAO {
         return p;
     }
    
-    public static ArrayList<Prodotto> convertiArray(ResultSet rs) throws SQLException
+    /* (non-Javadoc) */
+    private static ArrayList<Prodotto> convertiArray(ResultSet rs) throws SQLException
     {
         ArrayList<Prodotto> risultati = new ArrayList<Prodotto>();
        
@@ -304,7 +368,6 @@ public class ProdottoDAO {
     private static final String RICERCA_DA_MENU_GIOCHI = "SELECT * FROM Prodotto WHERE Disponibilita>=0 AND (Piattaforma LIKE ? OR Piattaforma LIKE ? OR Piattaforma LIKE ?)";
     private static final String PIU_VENDUTI = "SELECT * FROM Prodotto WHERE Disponibilita>=0 ORDER BY numVenduti DESC LIMIT 0,5";
     private static final String ULTIMI_ARRIVI = "SELECT * FROM Prodotto WHERE Disponibilita>=0 ORDER BY DataUscita DESC LIMIT 0,5";
-    private static final String LOAD_BY_NAME = "SELECT * FROM Prodotto WHERE Nome LIKE ? OR Nome LIKE ? OR Nome LIKE ?";
     private static final String DO_SAVE ="INSERT INTO Prodotto(Nome, Produttore, Piattaforma, Genere, Descrizione, Immagini, Prezzo, Disponibilita, DataUscita, numVenduti, linkVideo) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
     private static final String UPDATE_QUANTITY="UPDATE Prodotto SET Disponibilita = ?, numVenduti = ? WHERE idProdotto = ?";
     private static final String REMOVE_PRODUCT="UPDATE Prodotto SET Disponibilita = ? WHERE idProdotto = ?";

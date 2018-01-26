@@ -20,9 +20,8 @@ import model.UtenteDAO;
 import utils.DBConnection;
 
 /**
- * Classe di test per CartaDiCreditoDAO
- * 
- * @author Luca
+ * Classe di test per {@link CartaDiCreditoDAO}
+ * @author Alfonso
  */
 public class CartaDiCreditoDAO_Test {
 

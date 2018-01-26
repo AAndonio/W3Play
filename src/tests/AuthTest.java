@@ -8,10 +8,6 @@ import org.junit.Test;
 
 import bean.Utente;
 
-import org.openqa.selenium.*;
-
-
-
 public class AuthTest {
 
 	@Test
@@ -39,7 +35,4 @@ public class AuthTest {
 	public void testAuthentication4() throws SQLException {
 		assertNull(Utente.controllaCredenziali("ant96@hotmail.commercial","antonio" ).getEmail()); //TC_1.1_4
 	}
-	
-	
-	
 }

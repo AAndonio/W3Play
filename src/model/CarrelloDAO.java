@@ -13,10 +13,15 @@ import bean.Utente;
 import util.IO;
 import utils.DBConnection;
 
+/**
+ * Classe DAO per {@link Carrello}
+ * @author Luca
+ */
 public class CarrelloDAO {
 	
 	/**
 	 * Aggiorna quantità e prezzo del carrello
+	 * @param Carrello: {@link Carrello}
 	 * @throws SQLException
 	 */
 	public static void doUpdate(Carrello c) {
@@ -44,7 +49,14 @@ public class CarrelloDAO {
 		}
 	}
 	
+	/**
+	 * Crea un nuovo carrello per il nuovo utente
+	 * @param email: email del nuovo utente
+	 * @return int: id del nuovo carrello creato
+	 * @throws SQLException
+	 */
 	public static int doCreate(String email) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -68,7 +80,13 @@ public class CarrelloDAO {
 		
 		return id;
 	}
-
+	
+	/**
+	 * Cerca un carrello in base al suo id
+	 * @param idCarrello: id del carrello
+	 * @return Carrello: {@link Carrello}
+	 * @throws SQLException
+	 */
 	public static Carrello doRetrieveByKey(int idCarrello) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -91,8 +109,8 @@ public class CarrelloDAO {
 	
 	/**
 	 * Recupera dal db il carrello dell'utente.
-	 * @param utente
-	 * @return
+	 * @param utente: {@link Utente}
+	 * @return Carrello: {@link Carrello}
 	 * @throws SQLException
 	 */
 	public static Carrello doRetrieveByUser(Utente utente) throws SQLException {
@@ -133,7 +151,11 @@ public class CarrelloDAO {
 	//-- Gestione Articoli
 	//-----------------------------------------------------------------------------
 	
-	/** Carica dal DB i prodotti salvati nel carrello specificato */
+	/** 
+	 * Carica dal DB i prodotti salvati nel carrello specificato
+	 * @param carrello: id del carrello da cui caricarne i prodotti
+	 * @return Map<Prodotto, Integer>: dizionario con tuple(prodotto, quantità)
+	 */
 	public static Map<Prodotto, Integer> doLoad(int carrello) {
 
 		Map<Prodotto, Integer> map = new TreeMap<>();
@@ -175,10 +197,13 @@ public class CarrelloDAO {
 		return map;
 	}
 	
-	/** 
-	 * Agginge nel DB la relazione tra prodotto e carrello 
-	 * @throws SQLException 
-	 * */
+	/**
+	 * Aggiunge nel DB la relazione tra prodotto e carrello
+	 * @param cart: {@link Carrello}
+	 * @param item: {@link Prodotto}
+	 * @param quantita: quantità del prodotto da aggiungere
+	 * @throws SQLException
+	 */
 	public static void doAddItem(Carrello cart, Prodotto item, int quantita) throws SQLException {
 		
 		Connection con = null;
@@ -200,6 +225,8 @@ public class CarrelloDAO {
 	
 	/** 
 	 * rimuove la relazione tra prodotto e carrello 
+	 * @param cart: {@link Carrello}
+	 * @param item: {@link Prodotto}
 	 * @throws SQLException 
 	 */
 	public static void doDeleteItem(Carrello cart, Prodotto item) throws SQLException  {
@@ -222,7 +249,10 @@ public class CarrelloDAO {
 	
 	/**
 	 * Aggiorna la quantità associata al prodotto presente nel carrello
-	 * @throws SQLException 
+	 * @param cart: {@link Carrello}
+	 * @param item: {@link Prodotto}
+	 * @param quantity: nuova quantità per il prodotto in questione
+	 * @throws SQLException
 	 */
 	public static void doUpdateItemQuantity(Carrello cart, Prodotto item, int quantity) throws SQLException {
 		
@@ -245,6 +275,7 @@ public class CarrelloDAO {
 	
 	/**
 	 * Svuota il carrello, cancellando tutte le relazioni con gli articoli
+	 * @param cart: {@link Carrello}
 	 * @throws SQLException 
 	 */
 	public static void doFlush(Carrello cart) throws SQLException {
@@ -265,6 +296,8 @@ public class CarrelloDAO {
 	// -----------------------------------------------------------------------------
 	// -- DCS
 	// -----------------------------------------------------------------------------
+	
+	/* (non-Javadoc) */
 	private static Carrello converti(ResultSet rs) throws SQLException {
 		Carrello c = null;
 		if (rs.next())

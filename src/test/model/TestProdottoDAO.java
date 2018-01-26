@@ -13,7 +13,12 @@ import bean.Prodotto;
 import model.ProdottoDAO;
 import utils.DBConnection;
 
+/**
+ * CLasse di test per {@link ProdottoDAO}
+ * @author Antonio
+ */
 public class TestProdottoDAO {
+	
 	private static Prodotto articolo;
 	private static String QRY = "SELECT * FROM prodotto ORDER BY idProdotto DESC LIMIT 1";
 	private static Connection con = null;

@@ -10,13 +10,17 @@ import utils.DBConnection;
 
 /**
  * Classe dao per il calcolo delle statistiche dal database
- * @author Luca
- *
+ * @author Alfonso
  */
 public class StatisticheDAO {
 
 	public StatisticheDAO() {}
 	
+	/**
+	 * Calcola le statistiche di sistema basandosi sui dati presenti nel databse
+	 * @return Statistiche: {@link Statistiche}
+	 * @throws SQLException
+	 */
 	public static Statistiche doCalculate() throws SQLException {
 		
 		Connection con = null;

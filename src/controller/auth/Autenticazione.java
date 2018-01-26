@@ -19,6 +19,10 @@ import bean.Amministratore;
 import bean.Ordine;
 import bean.Utente;
 
+/**
+ * Servlet per la gestione dell'Autenticazione
+ * @author Alfonso
+ */
 @WebServlet("/login")
 public class Autenticazione extends HttpServlet {
 	private static final long serialVersionUID = 1L;

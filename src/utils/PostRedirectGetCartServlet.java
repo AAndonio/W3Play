@@ -11,17 +11,15 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class PostRedirectGetCartServlet
+ * @author Alfonso
  */
 @WebServlet("/PostRedirectGetCartServlet")
 public class PostRedirectGetCartServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+     
     public PostRedirectGetCartServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**

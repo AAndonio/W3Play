@@ -20,7 +20,7 @@ import model.UtenteDAO;
 import utils.DBConnection;
 
 /**
- * Classe di test per CarrelloDAO
+ * Classe di test per {@link CarrelloDAO}
  * @author Luca
  */
 public class CarrelloDAO_Test {

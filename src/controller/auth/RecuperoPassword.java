@@ -17,7 +17,8 @@ import util.IO;
 import utils.Email;
 
 /**
- * Servlet implementation class RecuperoPassword
+ * Servlet per il recupero della password
+ * @author Luca
  */
 @WebServlet("/RecuperoPassword")
 public class RecuperoPassword extends HttpServlet {

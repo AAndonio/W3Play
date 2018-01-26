@@ -5,13 +5,21 @@ import java.sql.*;
 import bean.Utente;
 import utils.DBConnection;
 
+/**
+ * Classe DAO per {@link Utente}
+ * @author Augusto
+ */
 public class UtenteDAO {
 
-	private UtenteDAO() {
-	}
-
+	private UtenteDAO() {}
 	
+	/**
+	 * Inserisce un nuovo utente nel database
+	 * @param u: {@link Utente}
+	 * @throws SQLException
+	 */
 	public static void doSave(Utente u) throws SQLException {
+		
 		String sql = "INSERT INTO Utente VALUES (?,?,?,?,?,?,?,?)";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -31,10 +39,16 @@ public class UtenteDAO {
 
 		pstmt.close();
 		con.close();
-
 	}
-
+	
+	/**
+	 * Recupera un utente a partire dal suo id
+	 * @param email: id dell'utente
+	 * @return {@link Utente}
+	 * @throws SQLException
+	 */
 	public static Utente doRetrieveByKey(String email) throws SQLException {
+		
 		String sql = "SELECT * FROM utente WHERE Email = ?";
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -42,13 +56,26 @@ public class UtenteDAO {
 
 		pstmt = con.prepareStatement(sql);
 		pstmt.setString(1, email);
+		
 		ResultSet rs = pstmt.executeQuery();
-
-		return converti(rs);
-
+		Utente utente = converti(rs);
+		
+		rs.close();
+		pstmt.close();
+		con.close();
+		
+		return utente;
 	}
-
+	
+	/**
+	 * Controlla che le credenziali inserite corrispondano ad un account utente
+	 * @param email: email account
+	 * @param password: password account
+	 * @return {@link Utente}
+	 * @throws SQLException
+	 */
 	public static Utente Check(String email, String password) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -60,6 +87,7 @@ public class UtenteDAO {
 		Utente user = new Utente();
 
 		ResultSet rset = pstmt.executeQuery();
+		
 		if (rset.next()) {
 			user.setNome(rset.getString("Nome"));
 			user.setCognome(rset.getString("Cognome"));
@@ -74,7 +102,9 @@ public class UtenteDAO {
 			con.close();
 
 			return user;
+			
 		} else {
+			
 			pstmt.close();
 			con.close();
 
@@ -82,10 +112,16 @@ public class UtenteDAO {
 		}
 	}
 	
-	//TODO: verificare corretto funzionamento!
+	/**
+	 * Aggiorna o salva l'utente
+	 * @param u: {@link Utente}
+	 * @throws SQLException
+	 */
 	public static void doSaveOrUpdate(Utente u) throws SQLException {
+		
 		String sql = "INSERT INTO utente VALUES (?,?,?,?,?)";
 		String sqlU = "UPDATE utente SET email = ?, nome = ?, cognome = ? , password = ?, indirizzo ) ?";
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -102,6 +138,7 @@ public class UtenteDAO {
 			pstmt.setString(8, u.getCitta());
 
 			pstmt.executeUpdate();
+			
 		} else {
 			pstmt = con.prepareStatement(sqlU);
 			pstmt.setString(1, u.getEmail());
@@ -120,8 +157,18 @@ public class UtenteDAO {
 		con.close();
 	}
 
+	/**
+	 * Aggiorna l'indirizzo dell'utente
+	 * @param via: nuova via
+	 * @param numeroCivico: nuovo numero civico
+	 * @param cap: nuovo cap
+	 * @param citta: nuova città
+	 * @param utente: {@link Utente}
+	 * @throws SQLException
+	 */
 	public static void doUpdateAddress(String via, String numeroCivico, String cap, String citta, String utente)
 			throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -138,7 +185,13 @@ public class UtenteDAO {
 		pstmt.close();
 		con.close();
 	}
-
+	
+	/**
+	 * Controlla che l'email inserita corrisponda ad un account
+	 * @param email: email account
+	 * @return boolean: true se l'email corrisponde ad un account, false altrimenti
+	 * @throws SQLException
+	 */
 	public static boolean checkEmail(String email) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -153,16 +206,26 @@ public class UtenteDAO {
 
 			pstmt.close();
 			con.close();
+			
 			return true;
+			
 		} else {
 
 			pstmt.close();
 			con.close();
+			
 			return false;
 		}
 	}
 
+	/**
+	 * Aggiorna la password dell'utente
+	 * @param password: nuova password
+	 * @param utente: {@link Utente}
+	 * @throws SQLException
+	 */
 	public static void doUpdatePassword(String password, Utente utente) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -177,6 +240,12 @@ public class UtenteDAO {
 		con.close();
 	}
 	
+	/**
+	 * Aggiorna l'email dell'utente
+	 * @param newEmail: nuova email
+	 * @param utente: {@link Utente}
+	 * @throws SQLException
+	 */
 	public static void doUpdateEmail(String newEmail, Utente utente) throws SQLException {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -191,6 +260,12 @@ public class UtenteDAO {
 		pstmt.close();
 		con.close();
 	}
+	
+	/**
+	 * Cancella l'utente in base all'email
+	 * @param email: email dell'utente da cancellare
+	 * @throws SQLException
+	 */
 	public static void doDeleteUser(String email) throws SQLException{
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -209,7 +284,9 @@ public class UtenteDAO {
 	// -------------------------------------------------------------------------------------
 	// -- DCS
 	// -------------------------------------------------------------------------------------
-	public static Utente converti(ResultSet rs) throws SQLException
+	
+	/* (non-Javadoc) */
+	private static Utente converti(ResultSet rs) throws SQLException
 	{
 		Utente u = null;
 		if (rs.next())

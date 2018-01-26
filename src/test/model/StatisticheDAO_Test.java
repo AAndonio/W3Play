@@ -10,15 +10,14 @@ import bean.Statistiche;
 import model.StatisticheDAO;
 
 /**
- * Classe di test per StatisticheDAO
- * @author Luca
+ * Classe di test per {@link StatisticheDAO}
+ * @author Augusto
  */
 public class StatisticheDAO_Test {
 
 	@Test
 	public void test_doCalculate() throws SQLException {
 		
-		//calcolo delle statistiche dai dati nel db
 		Statistiche stats = StatisticheDAO.doCalculate();
 		
 		assertNotNull(stats);

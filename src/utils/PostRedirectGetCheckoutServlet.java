@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class PostRedirectGetCheckoutServlet
+ * @author Antonio
  */
 @WebServlet("/PostRedirectGetCheckoutServlet")
 public class PostRedirectGetCheckoutServlet extends HttpServlet {

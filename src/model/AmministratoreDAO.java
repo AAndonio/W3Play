@@ -10,9 +10,21 @@ import bean.Utente;
 import utils.DBConnection;
 import utils.Schema;
 
+/**
+ * Classe DAO per {@link Amministratore}
+ * @author Luca
+ */
 public class AmministratoreDAO {
 	
+	/**
+	 * Controlla la presenza delle credenziali nel database-
+	 * @param email: email account
+	 * @param password: password account
+	 * @return Amministratore: restituisce l'amministratore corrispondente
+	 * @throws SQLException
+	 */
 	public static Amministratore controllaCredenziali(String email, String password) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -73,11 +85,23 @@ public class AmministratoreDAO {
 		}
 	}
 	
+	/**
+	 * Aggiorna, nel database, la password dell'account utente corrispondente all'amministratore
+	 * @param password: nuova password
+	 * @param amministratore: {@link Amministratore}
+	 * @throws SQLException
+	 */
 	public static void doUpdatePassword(String password, Amministratore amministratore) throws SQLException {
 
 		amministratore.getUtente().aggiornaPassword(password);
 	}
 	
+	/**
+	 * Aggiorna, nel database, l'email dell'account utente corrispondente all'amministratore 
+	 * @param newEmail: nuova email
+	 * @param amministratore: {@link Amministratore}
+	 * @throws SQLException
+	 */
 	public static void doUpdateEmail(String newEmail, Amministratore amministratore) throws SQLException {
 		
 		Connection con = null;
@@ -98,6 +122,11 @@ public class AmministratoreDAO {
 		con.close();
 	}
 	
+	/**
+	 * Cancella, dal database, l'account amministratore preservando l'account utente
+	 * @param email: email dell'account da cancellare
+	 * @throws SQLException
+	 */
 	public static void doDeleteAdmin(String email) throws SQLException {
 		
 		Connection con = null;
@@ -106,7 +135,6 @@ public class AmministratoreDAO {
 
 		pstmt = con.prepareStatement(DELETE_ADMIN);
 		pstmt.setString(1, email);
-	
 
 		pstmt.executeUpdate();
 
