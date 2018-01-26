@@ -11,7 +11,8 @@ import org.junit.runners.Suite.SuiteClasses;
 	CartaDiCreditoDAO_Test.class,
 	StatisticheDAO_Test.class,
 	TestOrdineDAO.class,
-	TestUtenteDAO.class
+	TestUtenteDAO.class,
+	TestProdottoDAO.class
 })
 public class Model_TestSuite {
 

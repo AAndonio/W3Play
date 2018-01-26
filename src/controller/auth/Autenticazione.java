@@ -48,12 +48,13 @@ public class Autenticazione extends HttpServlet {
 			Amministratore adm = null;
 			try {
 				adm = Amministratore.controllaCredenziali(username, password);
+				
 			} catch (SQLException e2) {
-				// TODO Auto-generated catch block
+				IO.println("Autenticazione.doPost: errore Amministratore.controllaCredenziali");
 				e2.printStackTrace();
 			}
-
-			if (adm.getEmail() != null) {
+			
+			if (adm != null && adm.getEmail() != null) {
 				
 				adm.setStato(Utente.LOGGATO);
 				
@@ -84,7 +85,7 @@ public class Autenticazione extends HttpServlet {
 					user.setVia(temp.getVia());
 					user.setCivico(temp.getCivico());
 					user.setOrdini(new ArrayList<Ordine>());
-					user.setStato("loggato");
+					user.setStato(Utente.LOGGATO);
 					loadCreditCard(user);
 					
 					//
@@ -113,7 +114,7 @@ public class Autenticazione extends HttpServlet {
 				user.setEmail(null);
 				user.setPassword(null);
 				user.setCarrello(new Carrello());
-				user.setStato("unlogged");
+				user.setStato(Utente.UNLOGGED);
 				
 			} else {
 
@@ -121,7 +122,7 @@ public class Autenticazione extends HttpServlet {
 				Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
 				adm.setRuolo(null);
 				adm.setUtente(null);
-				adm.setStato("unlogged");
+				adm.setStato(Utente.UNLOGGED);
 			}
 			
 			request.getSession().invalidate();
@@ -139,7 +140,7 @@ public class Autenticazione extends HttpServlet {
 
 				adm.setRuolo(null);
 				adm.setUtente(null);
-				adm.setStato("unlogged");
+				adm.setStato(Utente.UNLOGGED);
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -157,7 +158,7 @@ public class Autenticazione extends HttpServlet {
 				user.setVia(temp.getVia());
 				user.setCivico(temp.getCivico());
 				user.setOrdini(new ArrayList<Ordine>());
-				user.setStato("loggato");
+				user.setStato(Utente.LOGGATO);
 				loadCreditCard(user);
 				
 				//
