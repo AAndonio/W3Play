@@ -21,7 +21,7 @@ function validateForm(){
 		alert("L'indirizzo e-mail non e' nel formato corretto");
 		return false;
 	}else if (!alphanumeric(password)){
-		alert("La password deve contenere lettere e numeri");
+		alert("La password deve contenere lettere e numeri (min 6, max 20)");
 		return false;
 	}else if (password != password2) {
 		alert("Le due password inserite non corrispondono");
@@ -53,7 +53,7 @@ function validateForm(){
 		return letters.test(parola);
 	}
 	function onlyLetterWithSpace(parola) {
-		var letters = new RegExp(/^[A-Za-z ]{4,10}$/);
+		var letters = new RegExp(/^[A-Za-z ]{5,25}$/);
 		return letters.test(parola);
 	}
 
@@ -172,13 +172,13 @@ function validateForm(){
             alert("La carta di credito inserita non è valida(ES: 1234 1234 1234 1234)");
             return false;
         }else if (!onlyLetterWithSpace(Titolare)){
-            alert("Il titolare puo' contenere solo caratteri alfabetici");
+            alert("Il titolare puo' contenere solo caratteri alfabetici (min 5 caratteri, massimo 15)");
             return false;
         }else if (!Date(Scadenza)){
             alert("La data inserita non è corretta");
             return false;
         }else if (!Ccv(ccv)){
-            alert("il ccv non è valido!");
+            alert("il ccv non è valido! (Inserire esattamente 3 cifre)");
             return false;
         }
        
@@ -259,6 +259,7 @@ function validateForm(){
     		return false;
     	}else if (!alphanumericLength(pass)){
     		alert("La password deve contenere tra 6 e 20 caratteri");
+    		//alert("Il cognome puo' contenere solo caratteri alfabetici"); Non toccare questa riga!!! -Alfonso
     		return false;
     	}
     }
