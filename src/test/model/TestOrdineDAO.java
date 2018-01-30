@@ -50,9 +50,19 @@ public class TestOrdineDAO {
 		int id = OrdineDAO.inoltraOrdine(ordine);
 		ordine.setIdOrdine(id);
 		
-		Assert.assertNotNull(OrdineDAO.doRetrieveByUtente(utente));
+		Assert.assertTrue(OrdineDAO.doRetrieveByUtente(utente).size() > 0);
 	}
-
+	
+	@Test
+	public void test_annullaOrdine() throws SQLException {
+		
+		int id = OrdineDAO.inoltraOrdine(ordine);
+		
+		Ordine.annullaOrdine(id);
+		
+		Assert.assertTrue(OrdineDAO.doRetrieveByUtente(utente).size() == 0);
+	}
+	
 	@After
 	public void clear() throws Exception {
 		

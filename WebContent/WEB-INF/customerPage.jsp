@@ -1,3 +1,6 @@
+<%@page import="java.time.temporal.ChronoUnit"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.List"%>
 <%@page import="bean.Prodotto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -17,6 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/pageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <script src="script/jquery-3.2.1.min.js"></script>
+  <script src="script/bootbox.min.js"></script>
   <script src="script/popupform.js"></script>
   <link href="css/customerPageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -158,7 +162,9 @@
               <ul class="data">
               	<li> <%=c.getNumerocarta()%></li>
                 <li><%=c.getTitolare()%></li>
-                <li>Scade il <%=c.getScadenza()%> <img class="edit-payment" src="img/edit.png" onclick="setHiddenValuePayment('<%=c.getNumerocarta()%>', 'aggiornaCarta');"></li>
+                <li>Scade il <%=c.getScadenza()%> <img class="edit-payment" src="img/edit.png" onclick="setHiddenValuePayment('<%=c.getNumerocarta()%>', 'aggiornaCarta');">
+                	<img src="img/delete.png" onclick="deleteCard('<%=c.getNumerocarta()%>');">
+                </li>
               </ul>
               <%}%>
               <input class="button-customer-page edit-payment" type="button" value="Aggiungi Carta" onclick="setHiddenValuePayment('','aggiungiCarta');" >
@@ -193,6 +199,23 @@
                 <div class="order-info">
                   <span class="information order-number">Ordine n° <%= o.getIdOrdine() %></span>
                   <span class="information order-date">del <%=o.getDataAcquisto() %></span>
+                  <span class="information">
+                  
+                  	<%
+                  		LocalDate today = LocalDate.now();
+                  		LocalDate buyDate = o.getDataAcquisto();
+                  		LocalDate buyDateNextDay = buyDate.plus(1, ChronoUnit.DAYS);
+                  		
+                  		if (today.compareTo(buyDate) >= 0 && today.compareTo(buyDateNextDay) <= 0) { %>
+                  			
+                  			<form class="form" name="annulla_ordine" action="orderServlet" method="post">
+                  				<input class="button-form" type="submit" value="Annulla Ordine">
+                  				<input name="action" type="hidden" value="annullaOrdine-<%= o.getIdOrdine() %>">
+                  			</form>		
+                  		<% } 
+                  	%>
+                  	
+                  </span>
                   <span class="information order-total">Totale ordine: &euro; <%=formatter.format("%.2f", o.getCosto())%></span>
                 </div>
                 <div class="order-items">
@@ -333,6 +356,13 @@ function setHiddenValuePayment(carta, azione) {
 	  document.getElementById("azioneFormPassword").value = azione;
 	  console.log(azione);
   }
+  
+  function deleteCard(carta) {
+	  setHiddenValuePayment(carta, 'rimuoviCarta');
+	  var form = document.getElementsByName('changeCreditCard')[0];
+	  form.submit();
+  }
+  
 </script>
 <script src="script/popupform.js"></script>
 <script src="script/validationscript.js"></script>

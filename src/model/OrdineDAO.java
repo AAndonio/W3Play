@@ -120,6 +120,30 @@ public class OrdineDAO {
 
 		return or;
 	}
+	
+	/**
+	 * Cancella l'ordine dal database, cancellando anche le relazioni con dettaglio ordine
+	 * @param id: id dell'ordine da cancellare
+	 * @throws SQLException 
+	 */
+	public static void doDeleteById(int id) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		con = DBConnection.getConnection();
+
+		pstmt = con.prepareStatement(DELETE_ASSOCIAZIONI);
+		pstmt.setInt(1, id);
+		pstmt.executeUpdate();
+		pstmt.close();
+		
+		pstmt = con.prepareStatement(DELETE_BY_ID);
+		pstmt.setInt(1, id);
+		pstmt.executeUpdate();
+		pstmt.close();
+		
+		con.close();
+	}
 
 	// -------------------------------------------------------------------------------------
 	// -- DCS
@@ -145,6 +169,8 @@ public class OrdineDAO {
 	}
 	// -------------------------------------------------------------------------------------
 	
+	private static final String DELETE_ASSOCIAZIONI = "delete from dettagliordine where ordine = ?";
+	private static final String DELETE_BY_ID = "DELETE FROM Ordine WHERE idOrdine = ?";
 	private static final String SEARCH_ORDINI = "SELECT * FROM Ordine WHERE Utente = ?";
 	private static final String LOAD_ORDER = "INSERT INTO Ordine (Prezzo, DataAcquisto, Carta, Utente) VALUES (?,?,?,?)";
 	private static final String ADD_ARTICOLO = "INSERT INTO dettagliordine VALUES (?,?,1)"; //quantità fissa a 1 xke non è usata nel repilogo ordine

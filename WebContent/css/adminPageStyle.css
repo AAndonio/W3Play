@@ -21,6 +21,15 @@
     margin-bottom: 2em;
 }
 
+#statistiche {
+    text-decoration: none;
+    color: white;
+    padding: 1em 2em;
+    background-color: #55d6aa;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
 #addproduct-div form{
  	height:90%;
 }

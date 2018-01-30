@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.Ordine;
 import bean.Utente;
+import model.OrdineDAO;
 import util.IO;
 
 /**
@@ -53,6 +54,26 @@ public class OrdiniServlet extends HttpServlet {
 
 		Utente user = (Utente) request.getSession().getAttribute("utente");
 		List<Ordine> ordini = new ArrayList<Ordine>();
+		
+		String action = request.getParameter("action");
+		
+		if (action != null) {
+			
+			String[] part = action.split("-");
+			if (part[0].equals("annullaOrdine")) {
+				
+				int id = Integer.parseInt(part[1]);
+				
+				try {
+					Ordine.annullaOrdine(id);
+					IO.println("OrdiniServlet.doPost: ordine annullato!");
+					
+				} catch (SQLException e) {
+					IO.println("OrdiniServlet.doPost: errore annulla ordine!");
+					e.printStackTrace();
+				}
+			}
+		}
 		
 		try {
 			ordini = Ordine.searchOrdine(user);

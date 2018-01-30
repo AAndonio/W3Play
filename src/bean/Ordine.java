@@ -108,6 +108,15 @@ public class Ordine {
 	public static List<Ordine> searchOrdine(Utente utente) throws SQLException {
 		return OrdineDAO.doRetrieveByUtente(utente);
 	}
+	
+	/**
+	 * Annulla un ordine.
+	 * @param id: id dell'ordine da annullare
+	 * @throws SQLException
+	 */
+	public static void annullaOrdine(int id) throws SQLException {
+		OrdineDAO.doDeleteById(id);
+	}
 
 	private int idOrdine;
 	private float costo;
