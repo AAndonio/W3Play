@@ -107,7 +107,7 @@ function validateForm(){
 	
 	function linkVideo(url)
 	{
-		var urlReg = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+		var urlReg = new RegExp(/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/gi);
 		return urlReg.test(url);
 	}
 
@@ -206,31 +206,34 @@ function validateForm(){
     	var video = document.forms["addProduct"]["product-linkVideo"].value;
     	
       	if(!alphanumericSpaceWithSpecial(nome)){
-    		alert("Il nome del gioco deve contenere solo lettere e numeri");
+    		alert("Il nome del prodotto deve contenere solo lettere e numeri. Inoltre deve avere almeno 3 caratteri e al massimo 45.");
     		return false;
     	}else if (!alphanumericSpaceWithSpecial(produttore)){
-    		alert("Il Produttore puo essere solo alfanumerico");
+    		alert("Il nome del produttore deve contenere solo lettere e numeri. Inoltre deve avere almeno 3 caratteri e al massimo 45.");
     		return false;
-    	}else if (piattaforma != "" && !alphanumericSpaceWithSpecial(piattaforma)){
-    		alert("Il nome della piattaforma può essere solo alfanumerico");
+    	}else if (piattaforma == "" || piattaforma != "" && !alphanumericSpaceWithSpecial(piattaforma)){
+    		alert("Il nome della piattaforma può essere solo alfanumerico.");
     		return false;
-    	}else if(genere != "" && !alphanumericSpaceWithSpecial(genere)){
-    		alert("Il genere inserito non  e' corretto");
+    	}else if(piattaforma.length < 3 || piattaforma.length > 20){
+    		alert("La piattaforma deve avere almeno 3 caratteri e al massimo 20.");
     		return false;
-    	}else if(descrizione != "" && !alphanumericSpace(descrizione)){
-    		alert("La descrizione deve essere alfanumerica!");
+    	}else if(genere == "" || !alphanumericSpaceWithSpecial(genere)){
+    		alert("Il genere inserito non  e' corretto. Inoltre deve avere almeno 3 caratteri e al massimo 45.");
     		return false;
-    	}else if (!price(prezzo)){
-    		alert("Il prezzo inserito non e' valido!");
+    	}else if(descrizione == "" || !alphanumericSpace(descrizione)){
+    		alert("La descrizione non può essere vuota e deve essere alfanumerica!");
+    		return false;
+    	}else if (prezzo == "" || !price(prezzo)){
+    		alert("Il prezzo va inserito nel formato giusto (Es. 10.99). Non può essere vuoto e neanche negativo!");
     		return false;
     	}else if (!(numeric(disponibilita)) || disponibilita < "0"){
-    		alert("Il numero di prodotti disponibili non è valido!");
+    		alert("Il numero di prodotti disponibili non è numerico. Inoltre non può essere negativo!");
     		return false;
     	}else if(!Date(dataUscita)){
-    		alert("La data inserita non è nel formato corretto (aaaa/mm//gg)");
+    		alert("La data inserita non è nel formato corretto (aaaa/mm/gg)");
     		return false;
-    	}else if(video != "" && !linkVideo(video)){
-    		alert("L'URL del video non è corretto");
+    	}else if(video == "" || !linkVideo(video)){
+    		alert("L'URL del video non è nel formato corretto");
     		return false;
     	}
     	
@@ -238,7 +241,7 @@ function validateForm(){
     
     function alphanumericSpaceWithSpecial(uadd)
 	{
-		var letters = new RegExp(/^[0-9a-zA-Z :'-_!"£$%&\\()=?^]{3,20}$/);
+		var letters = new RegExp(/^[0-9a-zA-Z :'-_!"£$%&\\()=?^]{3,45}$/);
 		return letters.test(uadd);
 	}
     
