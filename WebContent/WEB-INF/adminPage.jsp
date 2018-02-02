@@ -198,10 +198,10 @@
                   <input type="text" id="product-producer" name="product-producer" required/><br/>
                    <label>Piattaforma<span>*</span></label>
                   <br/>
-                  <input type="text" id="product-platform" name="product-platform"/><br/>
+                  <input type="text" id="product-platform" name="product-platform" required/><br/>
                    <label>Genere<span>*</span></label>
                   <br/>
-                  <input type="text" id="product-genre" name="product-genere"/><br/>
+                  <input type="text" id="product-genre" name="product-genere" required/><br/>
                   <br/>
                   <label>Descrizione<span>*</span></label>
                   <br/>
@@ -215,13 +215,13 @@
                   <input type="text" id="product-image" name="product-price" required/><br/>
                   <label>Disponibilit&aacute;<span>*</span></label>
                   <br/>
-                  <input type="number" id="disponibili" name="disponibili" required/><br/>
+                  <input type="text" id="disponibili" name="disponibili" required/><br/>
                   <label>Data Uscita<span>*</span></label>
                   <br/>
                   <input type="text" id="product-release-date" name="product-release-date" required/><br/>
                   <label>Link Video<span>*</span></label>
                   <br/>
-                  <input type="text" id="product-linkVideo" name="product-linkVideo"/><br/>
+                  <input type="text" id="product-linkVideo" name="product-linkVideo" required/><br/>
                   <input class="button-form" type="submit" value="Aggiorna">
                   <input type="hidden" name="action" value="addObject"/>
                   <input type="hidden" name="text"/>
