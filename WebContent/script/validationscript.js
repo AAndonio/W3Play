@@ -241,7 +241,7 @@ function validateForm(){
     
     function alphanumericSpaceWithSpecial(uadd)
 	{
-		var letters = new RegExp(/^[0-9a-zA-Z :'-_!"£$%&\\()=?^]{3,45}$/);
+		var letters = new RegExp(/^[À-ÿ0-9a-zA-Z :'-_!"£$%&\\()=?^]{3,45}$/);
 		return letters.test(uadd);
 	}
     

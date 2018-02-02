@@ -279,7 +279,7 @@
 							value="<%=prodotto.getProduttore()%>" name="product-producer"
 							required /><br /> <label>Piattaforma<span>*</span></label> <br />
 						<input type="text" id="product-pla"
-							value="<%=prodotto.getPiattaforma()%>" name="product-platform" /><br />
+							value="<%=prodotto.getPiattaforma()%>" name="product-platform" required /><br />
 						<label>Genere<span>*</span></label> <br /> <input type="text"
 							id="product-genre" value="<%=prodotto.getGenere()%>"
 							name="product-genere" /><br /> <br /> <label>Descrizione<span>*</span></label>
@@ -287,11 +287,11 @@
 						<textarea id="product-descr" name="product-description" /></textarea>
 						<br /> <br /> <label>Immagine<span>*</span></label> <br /> <input
 							type="file" multiple="false" size="50" name="product-image"
-							required /><br /> <label>Prezzo<span>*</span></label> <br /> <input
+							 /><br /> <label>Prezzo<span>*</span></label> <br /> <input
 							type="text" id="product-prezzo"
-							value="<%=prodotto.getPrezzo()%>" name="product-price" required /><br />
+							value="<%=prodotto.getPrezzo()%>" name="product-price" required  /><br />
 						<label>Disponibilit&aacute;<span>*</span></label> <br /> <input
-							type="number" id="disponibili"
+							type="text" id="disponibili"
 							value="<%=prodotto.getDisponibilita()%>" name="disponibili"
 							required /><br /> <label>Data Uscita<span>*</span></label> <br />
 						<input type="text" id="product-release-date"
@@ -299,7 +299,7 @@
 							name="product-release-date" required /><br /> <label>Link
 							Video<span>*</span>
 						</label> <br /> <input type="text" id="product-linkVideo"
-							value="<%=prodotto.getLinkVideo()%>" name="product-linkVideo" /><br />
+							value="<%=prodotto.getLinkVideo()%>" name="product-linkVideo" required /><br />
 						<input class="button-form" type="submit" value="Aggiorna">
 						<input type="hidden" name="action" value="modificaProdotto" /> <input
 							type="hidden" name="idProdotto"
