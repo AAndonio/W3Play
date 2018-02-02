@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.Amministratore;
 import bean.Prodotto;
@@ -47,22 +48,24 @@ public class HomepageServlet extends HttpServlet {
 
 			System.err.println(e.getMessage());
 		}
-
-		request.getSession().setAttribute("ultimiArrivi", ultimiArrivi);
-		request.getSession().setAttribute("piuVenduti", piuVenduti);
+		
+		HttpSession session = request.getSession();
+		
+		session.setAttribute("ultimiArrivi", ultimiArrivi);
+		session.setAttribute("piuVenduti", piuVenduti);
 
 		request.setAttribute("ultimiArrivi", ultimiArrivi);
 
-		if (request.getSession().getAttribute("utente") == null) {
+		if (session.getAttribute("utente") == null) {
 			Utente user = new Utente();
-			request.getSession().setAttribute("utente", user);
+			session.setAttribute("utente", user);
 		}
-		if (request.getSession().getAttribute("admin") == null) {
+		if (session.getAttribute("admin") == null) {
 			Amministratore adm = new Amministratore();
-			request.getSession().setAttribute("admin", adm);
+			session.setAttribute("admin", adm);
 		}
 
-		request.getSession().setMaxInactiveInterval(180 * 60);
+		session.setMaxInactiveInterval(180 * 60);
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/index.jsp");
 		dispatcher.forward(request, response);
 	}

@@ -3,7 +3,8 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.List"%>
 <%@page import="bean.Prodotto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <%@ page import="bean.CartaDiCredito, java.util.ArrayList, bean.Ordine, java.util.Formatter"%>
     
@@ -19,7 +20,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="css/pageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <script src="script/jquery-3.2.1.min.js"></script>
-  <script src="script/bootbox.min.js"></script>
   <script src="script/popupform.js"></script>
   <link href="css/customerPageStyle.css" type="text/css" rel="stylesheet" media="screen"/>
   <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
@@ -42,10 +42,9 @@
 
         <div class="header-top-buttons">
           <div class="header-top-button">
-         
+           
              
-              <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
-
+             <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
            
           </div>
            
@@ -131,6 +130,22 @@
         </li>
         <li class="dropdown"><a class="nav-link" href="searchServlet?ricercaMenu=si&produttore=0&piattaforma=PC&nome=0">PC Games</a>   
         </li>
+        
+        <!-- CAMBIA RUOLO: user_to_admin -->
+        <%
+        	String cambiaRuolo = (String) session.getAttribute("cambia_ruolo");
+        
+        	if ("true".equals(cambiaRuolo)) { %>
+        	
+        		<li class="dropdown" style="float: right;">
+    			 <div>
+				  <form class="form" name="change" action="login" method="post">
+					<input class="nav-link" type="submit" value="Cambia Ruolo" style="background: transparent; border:  none; font-size: 0.9em; padding:  0;">
+                  	<input name="action" type="hidden" value="user_to_admin">
+              	  </form>
+				 </div>
+				</li>
+        <%  } %>
       </ul>
      
  
@@ -175,7 +190,6 @@
             	<input type="hidden" name="action" value="logout"/>
          	</form>
          		<button id="account-remove" class="button-customer-page"> Elimina Account</button>
-         		
          	</div>
          
          	 <div id="remaccount-div" class="edit-attributes-div">
