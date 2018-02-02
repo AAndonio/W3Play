@@ -45,8 +45,7 @@
              	Amministratore.Ruolo ruolo = adm.getRuolo();
              %>
              
-            <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
-         	
+             <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
           </div>
      
         </div>
@@ -166,7 +165,8 @@
               		</form>
 				</div>
 			</div>
-			
+		
+		 <!-- CAMBIA RUOLO: admin_to_user -->
 		 <div id="change-div" class="edit-attributes-div">
 				<div>
 					<form class="form" name="change" action="login" method="post" >
@@ -208,10 +208,10 @@
                   <input type="text" id="product-producer" name="product-producer" required/><br/>
                    <label>Piattaforma<span>*</span></label>
                   <br/>
-                  <input type="text" id="product-platform" name="product-platform" required/><br/>
+                  <input type="text" id="product-platform" name="product-platform"/><br/>
                    <label>Genere<span>*</span></label>
                   <br/>
-                  <input type="text" id="product-genre" name="product-genere" required/><br/>
+                  <input type="text" id="product-genre" name="product-genere"/><br/>
                   <br/>
                   <label>Descrizione<span>*</span></label>
                   <br/>
@@ -225,13 +225,13 @@
                   <input type="text" id="product-image" name="product-price" required/><br/>
                   <label>Disponibilit&aacute;<span>*</span></label>
                   <br/>
-                  <input type="text" id="disponibili" name="disponibili" required/><br/>
+                  <input type="number" id="disponibili" name="disponibili" required/><br/>
                   <label>Data Uscita<span>*</span></label>
                   <br/>
                   <input type="text" id="product-release-date" name="product-release-date" required/><br/>
                   <label>Link Video<span>*</span></label>
                   <br/>
-                  <input type="text" id="product-linkVideo" name="product-linkVideo" required/><br/>
+                  <input type="text" id="product-linkVideo" name="product-linkVideo"/><br/>
                   <input class="button-form" type="submit" value="Aggiorna">
                   <input type="hidden" name="action" value="addObject"/>
                   <input type="hidden" name="text"/>
