@@ -20,9 +20,8 @@ import model.UtenteDAO;
 import utils.DBConnection;
 
 /**
- * Classe di test per CartaDiCreditoDAO
- * 
- * @author Luca
+ * Classe di test per {@link CartaDiCreditoDAO}
+ * @author Alfonso
  */
 public class CartaDiCreditoDAO_Test {
 
@@ -37,7 +36,7 @@ public class CartaDiCreditoDAO_Test {
 		UtenteDAO.doSave(utente);
 
 		// creo la carta di credito di test
-		carta = new CartaDiCredito("5889 6822 1355 1234", "Antonio Vivone", LocalDate.parse("2020-04-10"), 670);
+		carta = new CartaDiCredito("5889 6822 1355 1234", "Nome Cognome", LocalDate.parse("2020-04-10"), 670);
 	}
 
 	@Test // aggiunto controllo su associazioni con carta di credito, se le #associazioni == 0, la carta viene rimossa.
@@ -108,6 +107,20 @@ public class CartaDiCreditoDAO_Test {
 
 		// #associazioni dopo il save (count1) > #associazioni dopo il delete (count2)
 		assertTrue(count2 < count1);
+	}
+	
+	@Test
+	public void testDoDelete() throws SQLException {
+		
+		CartaDiCredito.addCreditCard(carta);
+		utente.addCarta(carta);
+
+		CartaDiCreditoDAO.doSave(carta.getNumerocarta(), utente.getEmail());
+		CartaDiCreditoDAO.doDelete(carta.getNumerocarta(), utente.getEmail());
+		
+		CartaDiCredito carta2 = CartaDiCreditoDAO.doRetrieveByKey(carta.getNumerocarta());
+		
+		assertNull(carta2);
 	}
 	
 	private int countAssociazioniCarta(CartaDiCredito carta) {

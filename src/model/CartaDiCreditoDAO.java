@@ -7,15 +7,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import com.sun.org.apache.regexp.internal.recompile;
-
 import bean.CartaDiCredito;
 import utils.DBConnection;
 
+/**
+ * Classe DAO per {@link CartaDiCredito}
+ * @author Alfonso
+ */
 public class CartaDiCreditoDAO {
 
 	private CartaDiCreditoDAO() {}
 	
+	/**
+	 * Salva la carta di credito nel database
+	 * @param c: {@link CartaDiCredito}
+	 * @throws SQLException
+	 */
 	public static void doSave(CartaDiCredito c) throws SQLException
 	{
 		
@@ -37,6 +44,12 @@ public class CartaDiCreditoDAO {
 		con.close(); 
 	}
 	
+	/**
+	 * Recupera una carta di credito in base al suo id (numero di carta)
+	 * @param numcarta: id della carta
+	 * @return {@link CartaDiCredito}
+	 * @throws SQLException
+	 */
 	public static CartaDiCredito doRetrieveByKey(String numcarta) throws SQLException
 	{
 		String sql = "SELECT * FROM cartadicredito WHERE numerocarta = ?";
@@ -57,9 +70,14 @@ public class CartaDiCreditoDAO {
 		return carta;	
 	}
 	
+	/**
+	 * Recupera tutte le carte di credito di un utente
+	 * @param email: email dell'utente
+	 * @return ArrayList<CartaDiCredito>: una lista di carte di credito
+	 * @throws SQLException
+	 */
 	public static ArrayList<CartaDiCredito> doRetrieveByUser(String email) throws SQLException
 	{
-		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -77,7 +95,14 @@ public class CartaDiCreditoDAO {
 			
 	}
 	
+	/**
+	 * Aggiorna la carta di credito con nuovi dati
+	 * @param vecchia: numero di carta della vecchia carta di credito
+	 * @param nuova: nuova carta di credito
+	 * @throws SQLException
+	 */
 	public static void doUpdate(String vecchia, CartaDiCredito nuova) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		con = DBConnection.getConnection();
@@ -99,7 +124,9 @@ public class CartaDiCreditoDAO {
 	//-----------------------------------------------------------------------------
 	//-- DCS 
 	//-----------------------------------------------------------------------------
-	public static CartaDiCredito converti(ResultSet rs) throws SQLException
+	
+	/* (non-Javadoc) */
+	private static CartaDiCredito converti(ResultSet rs) throws SQLException
 	{
 		CartaDiCredito c = null;
 		if(rs.next())
@@ -108,7 +135,8 @@ public class CartaDiCreditoDAO {
 		return c;
 	}
 	
-	public static ArrayList<CartaDiCredito> convertiArray(ResultSet rs) throws SQLException
+	/* (non-Javadoc) */
+	private static ArrayList<CartaDiCredito> convertiArray(ResultSet rs) throws SQLException
 	{
 		ArrayList<CartaDiCredito> carte = new ArrayList<CartaDiCredito>();
 		
@@ -121,6 +149,12 @@ public class CartaDiCreditoDAO {
 	
 	//Metodi di associazione tabelle Utente-Carta
 	
+	/**
+	 * Associa la carta di credito all'utente
+	 * @param carta: numero di carta
+	 * @param utente: email dell'utente
+	 * @throws SQLException
+	 */
     public static void doSave(String carta, String utente) throws SQLException
     {
        
@@ -138,7 +172,13 @@ public class CartaDiCreditoDAO {
         con.close();
            
     }
-   
+    
+    /**
+     * Cancella l'associazione (carta di credito, utente) dal database
+     * @param carta: numero di carta
+     * @param utente: email dell'utente
+     * @throws SQLException
+     */
     public static void doDelete(String carta, String utente) throws SQLException
     {
    

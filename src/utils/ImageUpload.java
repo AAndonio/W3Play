@@ -15,10 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-
-
 /**
- * Servlet implementation class imageUpload
+ * Servlet per il caricamento dell'immagine
+ * @author Luca
  */
 @WebServlet("/ImageUpload")
 @MultipartConfig

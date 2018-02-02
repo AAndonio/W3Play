@@ -20,7 +20,7 @@ import model.UtenteDAO;
 import utils.DBConnection;
 
 /**
- * Classe di test per CarrelloDAO
+ * Classe di test per {@link CarrelloDAO}
  * @author Luca
  */
 public class CarrelloDAO_Test {
@@ -32,11 +32,11 @@ public class CarrelloDAO_Test {
 		
 		// utente di test
 		utente = new Utente("test@email.it", "Nome", "Cognome", "testprova", "via", "12", "84090", "city");
-		utente.setStato("loggato");
+		utente.setStato(Utente.LOGGATO);
 		UtenteDAO.doSave(utente);
 	}
 	
-	@Test //il test ha rivelato bug nelle varie dao e la query di update sbagliata in CarrelloDAO
+	@Test
 	public void test_doCreate() throws SQLException {
 		
 		//aggiungo un nuovo carrello nel db
@@ -61,7 +61,7 @@ public class CarrelloDAO_Test {
 		assertTrue(result);	
 	}
 	
-	@Test //bug nel CarrelloDAO.doCreate, quando crea un nuoo carrello, non gli setta l'id che rimane 0 (fa scaturire problemi di inconsistenza delle chiavi esterne)
+	@Test 
 	public void test_doUpdate() throws Exception {
 		
 		Carrello carrello = Carrello.getCarrelloUtente(utente);
@@ -103,14 +103,17 @@ public class CarrelloDAO_Test {
 	public void test_doLoad() throws Exception {
 		
 		//
-		Utente luca = new Utente();
-		luca.setStato(Utente.LOGGATO);
-		luca.setEmail("luca@mail.com");
+		Carrello carrello = Carrello.getCarrelloUtente(utente);
+		utente.setCarrello(carrello);
 		
-		Carrello carrello = Carrello.getCarrelloUtente(luca);
-		carrello.fetchArticoli();
+		carrello.addProdotto(ProdottoDAO.doRetrieveByKey(1), 4);
+		carrello.addProdotto(ProdottoDAO.doRetrieveByKey(2), 3);
 		
-		assertTrue(carrello.getArticoli().size() > 0);
+		//
+		Carrello carrello2 = Carrello.getCarrelloUtente(utente);
+		carrello2.fetchArticoli();
+		
+		assertTrue(carrello2.getArticoli().size() > 0);
 	}
 	
 	@Test

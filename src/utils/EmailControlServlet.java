@@ -13,49 +13,55 @@ import javax.servlet.http.HttpServletResponse;
 import bean.Utente;
 
 /**
- * Servlet implementation class EmailControlServlet
+ * Servlet per il controllo della email
+ * 
+ * @author Alfonso
  */
 @WebServlet("/EmailControlServlet")
 public class EmailControlServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EmailControlServlet() {
-        super();
-    }
+
+	public EmailControlServlet() {
+		super();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		response.setHeader("Access-Control-Allow-Origin", "*"); 
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		String email = request.getParameter("email");
+		
 		boolean isUsed = false;
 		try {
-			 isUsed = Utente.checkEmail(email);
+			isUsed = Utente.checkEmail(email);
+			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
-		
+
 		PrintWriter out = response.getWriter();
 		System.out.println(isUsed);
-		if(isUsed) {
+		
+		if (isUsed) {
 			out.write("true");
-		}
-		else {
+		} else {
 			out.write("false");
 		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 

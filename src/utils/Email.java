@@ -7,14 +7,14 @@ import javax.mail.internet.MimeMessage;
 
 /**
  * Classe di supporto per l'invio delle email
- * @author Luca
+ * @author Augusto
  */
 public class Email {
 	
 	/**
 	 * Invia un email.
-	 * @param username
-	 * @param password
+	 * @param username account
+	 * @param password account
 	 */
 	public static void send(String username, String password) {
 		
@@ -61,6 +61,5 @@ public class Email {
 		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-
 	}
 }

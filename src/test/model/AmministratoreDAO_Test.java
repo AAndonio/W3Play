@@ -12,6 +12,11 @@ import model.AmministratoreDAO;
 import model.UtenteDAO;
 import utils.DBConnection;
 
+/**
+ * Classe di test per {@link AmministratoreDAO}
+ * @author Alfonso
+ *
+ */
 public class AmministratoreDAO_Test {
 
 	private static Amministratore admin = null;

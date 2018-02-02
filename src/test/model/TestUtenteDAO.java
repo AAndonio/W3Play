@@ -9,7 +9,10 @@ import org.junit.*;
 import bean.Utente;
 import model.UtenteDAO;
 
-
+/**
+ * Classe di test per {@link UtenteDAO}
+ * @author Augusto
+ */
 public class TestUtenteDAO {
 
 	private static Utente user=null;

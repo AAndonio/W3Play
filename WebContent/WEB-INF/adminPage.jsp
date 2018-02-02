@@ -40,9 +40,12 @@
         <div class="header-top-buttons">
           <div class="header-top-button">
            
-             <% Amministratore adm = (Amministratore) request.getSession().getAttribute("admin"); %>
+             <% 
+             	Amministratore adm = (Amministratore) request.getSession().getAttribute("admin");
+             	Amministratore.Ruolo ruolo = adm.getRuolo();
+             %>
              
-             <a id="changerole" href="#" style="margin-right:1.5em;">Cambia Ruolo</a><img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
+            <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
          	
           </div>
      
@@ -135,14 +138,21 @@
               <div class="data"><span>Password</span><br><div class="user-value">***</div>
               <img id="edit-password" src="img/edit.png"> </div>
             </div>
-
-            <a id="add-product" href="#">Aggiungi prodotto</a><%if(request.getAttribute("risultato") != null) { %><span> <%= request.getAttribute("risultato") %><%} %></span>
+			
+			<%
+				if (ruolo.equals(Amministratore.Ruolo.Backoffice)) { %>
+            	<a id="add-product" href="#">Aggiungi prodotto</a><%if(request.getAttribute("risultato") != null) { %><span> <%= request.getAttribute("risultato") %><%} %></span>
             
+            <% } else { %>
+            	<a id="#statistiche" href="/W3Play/StatisticheServlet">Statistiche</a>
+            <% } %>
+			
 			<form id="form-logout" id="logout-form" action="login" method="post">
           		<button  class="button-customer-page" type="submit" id="logout-button">Logout</button>
             	<input type="hidden" name="action" value="logout"/>
          	</form>
          	<button id="account-remove" class="button-customer-page"> Elimina Account</button>
+         	<button id="changerole" class="button-customer-page">Cambia Ruolo</button>
           </div>
            
         </div>

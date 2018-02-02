@@ -17,7 +17,8 @@ import model.ProdottoDAO;
 import util.IO;
 
 /**
- * Servlet implementation class cartServlet
+ * Servlet per la gestione del carrello
+ * @author Luca
  */
 @WebServlet("/cartServlet")
 public class CarrelloServlet extends HttpServlet {

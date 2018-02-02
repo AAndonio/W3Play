@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,12 +13,18 @@ import bean.Prodotto;
 import bean.Utente;
 import utils.DBConnection;
 
+/**
+ * Classe DAO per {@link Ordine}
+ * @author Augusto
+ */
 public class OrdineDAO {
 
 	private OrdineDAO() {}
 	
 	/**
 	 * Salva l'ordine nel DB, salvando anche le relazioni tra ordine e prodotto
+	 * @param ordine: {@link Ordine}
+	 * @return int: id dell'ordine inoltrato
 	 * @throws SQLException
 	 */
 	public static int inoltraOrdine(Ordine ordine) throws SQLException {
@@ -73,6 +78,8 @@ public class OrdineDAO {
 	
 	/**
 	 * Recupera tutti gli ordini effettuati da un utente, con i relativi prodotti acquistati
+	 * @param utente: {@link Utente}
+	 * @return ArrayList<Ordine>: un array di ordini
 	 * @throws SQLException
 	 */
 	public static ArrayList<Ordine> doRetrieveByUtente(Utente utente) throws SQLException {
@@ -113,10 +120,36 @@ public class OrdineDAO {
 
 		return or;
 	}
+	
+	/**
+	 * Cancella l'ordine dal database, cancellando anche le relazioni con dettaglio ordine
+	 * @param id: id dell'ordine da cancellare
+	 * @throws SQLException 
+	 */
+	public static void doDeleteById(int id) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		con = DBConnection.getConnection();
+
+		pstmt = con.prepareStatement(DELETE_ASSOCIAZIONI);
+		pstmt.setInt(1, id);
+		pstmt.executeUpdate();
+		pstmt.close();
+		
+		pstmt = con.prepareStatement(DELETE_BY_ID);
+		pstmt.setInt(1, id);
+		pstmt.executeUpdate();
+		pstmt.close();
+		
+		con.close();
+	}
 
 	// -------------------------------------------------------------------------------------
 	// -- DCS
 	// -------------------------------------------------------------------------------------
+	
+	/* (non-Javadoc) */
 	private static int estraiID(ResultSet rs) throws SQLException {
 		int id = 0;
 		if (rs.next()) {
@@ -125,6 +158,7 @@ public class OrdineDAO {
 		return id;
 	}
 
+	/* (non-Javadoc) */
 	private static ArrayList<Ordine> convertiArrayList(ResultSet rs) throws SQLException {
 		ArrayList<Ordine> o = new ArrayList<Ordine>();
 		while (rs.next()) {
@@ -135,7 +169,8 @@ public class OrdineDAO {
 	}
 	// -------------------------------------------------------------------------------------
 	
-	private static final String FIND_BY_ID = "SELECT * FROM ordine WHERE idOrdine = ?";
+	private static final String DELETE_ASSOCIAZIONI = "delete from dettagliordine where ordine = ?";
+	private static final String DELETE_BY_ID = "DELETE FROM Ordine WHERE idOrdine = ?";
 	private static final String SEARCH_ORDINI = "SELECT * FROM Ordine WHERE Utente = ?";
 	private static final String LOAD_ORDER = "INSERT INTO Ordine (Prezzo, DataAcquisto, Carta, Utente) VALUES (?,?,?,?)";
 	private static final String ADD_ARTICOLO = "INSERT INTO dettagliordine VALUES (?,?,1)"; //quantità fissa a 1 xke non è usata nel repilogo ordine

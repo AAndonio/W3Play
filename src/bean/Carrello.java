@@ -11,6 +11,10 @@ import java.util.TreeMap;
 import model.CarrelloDAO;
 import util.IO;
 
+/**
+ * Carrello utente
+ * @author Luca
+ */
 public class Carrello {
 
 	public Carrello() {}
@@ -23,15 +27,23 @@ public class Carrello {
 		this.utente = utente;
 	}
 	
+	/**
+	 * @return int: id del carrello
+	 */
 	public int getIdCarrello() {
 		return idCarrello;
 	}
-
+	
+	/**
+	 * @return Map<Prodotto, Integer>: contentente gli articoli presente nel carrello con la relativa quantit‡
+	 */
 	public Map<Prodotto, Integer> getArticoli() {
 		return articoli;
 	}
 	
-	/** Ritorna i prodotti presenti nel carrello come una lista di coppie (prodotto, quantit‡) */
+	/**
+	 * @return List<Entry<Prodotto, Integer>>: Ritorna i prodotti presenti nel carrello come una lista di coppie (prodotto, quantit‡)
+	 */
 	public List<util.Entry<Prodotto, Integer>> getListaArticoli() {
 		
 		List<util.Entry<Prodotto, Integer>> list = new ArrayList<>();
@@ -41,46 +53,58 @@ public class Carrello {
 		return list;
 	}
 	
+	/**
+	 * Controlla se il carrello Ë vuoto
+	 * @return boolean: true se il carrello Ë vuoto, false altrimenti
+	 */
 	public boolean carrelloVuoto() {
 		
 		return articoli.size() == 0;
 	}
-
+	
+	/**
+	 * Imposta l'id al carrello
+	 * @param idCarrello: nuovo id del carrello
+	 */
 	public void setIdCarrello(int idCarrello) {
 		this.idCarrello = idCarrello;
 	}
 	
+	/**
+	 * @return int: quantit‡ totale dei prodotti presenti nel carrello
+	 */
 	public int getQtaprodotti() {
 	
 		return Qtaprodotti;
 	}
-
-	public void setQtaprodotti(int qtaprodotti) {
-		Qtaprodotti = qtaprodotti;
-	}
-
+	
+	/**
+	 * @return float: costo totale del carrello
+	 */
 	public float getPrezzoTotale() {
 		
 		return prezzoTotale;
 	}
-
-	public void setPrezzoTotale(float prezzoTotale) {
-		this.prezzoTotale = prezzoTotale;
-	}
 	
-
+	/**
+	 * @return Utente: utente associato al carrello
+	 */
 	public Utente getUtente() {
 		return utente;
 	}
 	
+	/**
+	 * Imposta l'utente che ha il carrello
+	 * @param utente
+	 */
 	public void setUtente(Utente utente) {
 		this.utente = utente;
 	}
 	
 	/**
 	 * Recupera il carrello dal database, se l'utente non ha un carrello ne crea uno nuovo.
-	 * @param utente
-	 * @return Carrello
+	 * @param utente: utente che ha il carrello
+	 * @return Carrello: ritorna il carrello dell'utente specificato
 	 * @throws SQLException
 	 */
 	public static Carrello getCarrelloUtente(Utente utente) throws SQLException {	
@@ -111,8 +135,8 @@ public class Carrello {
 	
 	/**
 	 * Aggiunge un prodotto al carrello e aggiorna il DB (solo se l'utente Ë loggato).
-	 * @param prodotto
-	 * @param quantit‡
+	 * @param prodotto: prodotto da aggiungere al carrello
+	 * @param quantit‡: quantit‡ del prodotto
 	 * @throws Exception 
 	 */
 	public void addProdotto(Prodotto prodotto, int quantit‡) throws Exception {
@@ -150,8 +174,11 @@ public class Carrello {
 		}
 	}
 	
-	
-	/** controlla se nel carrello Ë presente il prodotto specificato */
+	/**
+	 * Controlla se nel carrello Ë presente il prodotto specificato
+	 * @param prodotto: prodotto da cercare
+	 * @return boolean: true se il prodotto Ë presente, false altrimenti
+	 */
 	public boolean contieneProdotto(Prodotto prodotto) {
 		
 		return articoli.containsKey(prodotto);
@@ -159,6 +186,8 @@ public class Carrello {
 	
 	/**
 	 * Metodo di supporto per la modifica della quantit‡ del prodotto nel carrello
+	 * @param idProdotto: id corrispondente al prodotto di cui si vuole aggiornarne la quantit‡
+	 * @param diQuanto: quantit‡ da aggiungere o rimuovere
 	 * @throws SQLException
 	 */
 	public void aggiornaQuantit‡Prodotto(int idProdotto, int diQuanto) throws SQLException {
@@ -194,7 +223,10 @@ public class Carrello {
 		}
 	}
 	
-	/** Fonde i due carrelli, riflettendo le modifiche sul DB */
+	/** 
+	 * Fonde i due carrelli, riflettendo le modifiche sul DB
+	 * @param Carrello: altro carrello da unire con quello attuale 
+	 */
 	public void merge(Carrello carrello) {
 		
 		List<util.Entry<Prodotto, Integer>> nuoviProdotti = carrello.getListaArticoli();
@@ -256,6 +288,7 @@ public class Carrello {
 		}
 	}
 	
+	/* (non-Javadoc) @see java.lang.Object#toString() */
 	@Override
 	public String toString() {
 		

@@ -10,13 +10,17 @@ import utils.DBConnection;
 
 /**
  * Classe dao per il calcolo delle statistiche dal database
- * @author Luca
- *
+ * @author Alfonso
  */
 public class StatisticheDAO {
 
 	public StatisticheDAO() {}
 	
+	/**
+	 * Calcola le statistiche di sistema basandosi sui dati presenti nel databse
+	 * @return Statistiche: {@link Statistiche}
+	 * @throws SQLException
+	 */
 	public static Statistiche doCalculate() throws SQLException {
 		
 		Connection con = null;
@@ -26,7 +30,7 @@ public class StatisticheDAO {
 		con = DBConnection.getConnection();
 		
 		//numero prodotti venduti
-		pstmt = con.prepareStatement(N_PRODOTTI_VENDUTI);
+		pstmt = con.prepareStatement(N_PROD_SOLD_LAST_MONTH);
 		rs = pstmt.executeQuery();
 		
 		int nProdottiVenduti = 0;
@@ -80,7 +84,8 @@ public class StatisticheDAO {
 	}
 	
 	//-- query:
-	private static final String N_PRODOTTI_VENDUTI = "SELECT COUNT(*) FROM dettagliordine";
+	//private static final String N_PRODOTTI_VENDUTI = "SELECT COUNT(*) FROM dettagliordine";
+	private static final String N_PROD_SOLD_LAST_MONTH = "select count(*) from dettagliordine d inner join (SELECT o.idOrdine as id FROM ordine o WHERE (o.DataAcquisto >= (NOW() - INTERVAL 1 MONTH))) t on d.ordine = t.id";
 	private static final String N_PRODOTTI_CATALOGO = "SELECT COUNT(*) FROM prodotto";
 	private static final String N_UTENTI_REGISTRATI = "SELECT COUNT(*) FROM utente u WHERE u.Email NOT IN (SELECT a.Email FROM amministratore a)";
 	private static final String EARNINGS_LAST_MONTH = "SELECT SUM(o.Prezzo) FROM ordine o WHERE (o.DataAcquisto >= (NOW() - INTERVAL 1 MONTH))";
