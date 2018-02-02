@@ -3,8 +3,7 @@
 <%@page import="java.util.GregorianCalendar"%>
 <%@page import="java.util.List"%>
 <%@page import="bean.Prodotto"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
     
 <%@ page import="bean.CartaDiCredito, java.util.ArrayList, bean.Ordine, java.util.Formatter"%>
     
@@ -43,9 +42,10 @@
 
         <div class="header-top-buttons">
           <div class="header-top-button">
-           
+         
              
-             <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
+              <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
+
            
           </div>
            
@@ -175,6 +175,7 @@
             	<input type="hidden" name="action" value="logout"/>
          	</form>
          		<button id="account-remove" class="button-customer-page"> Elimina Account</button>
+         		
          	</div>
          
          	 <div id="remaccount-div" class="edit-attributes-div">

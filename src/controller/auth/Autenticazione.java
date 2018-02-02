@@ -147,7 +147,7 @@ public class Autenticazione extends HttpServlet {
 				adm.setStato(Utente.UNLOGGED);
 
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
 
@@ -165,7 +165,6 @@ public class Autenticazione extends HttpServlet {
 				user.setStato(Utente.LOGGATO);
 				loadCreditCard(user);
 				
-				//
 				mergeCarrelli(user);
 				
 				direzione = "/orderServlet";
@@ -179,7 +178,7 @@ public class Autenticazione extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		}
-	}
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse

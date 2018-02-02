@@ -45,7 +45,7 @@
              	Amministratore.Ruolo ruolo = adm.getRuolo();
              %>
              
-             <a id="changerole" href="#" style="margin-right:1.5em;">Cambia Ruolo</a><img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
+            <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
          	
           </div>
      
@@ -152,6 +152,7 @@
             	<input type="hidden" name="action" value="logout"/>
          	</form>
          	<button id="account-remove" class="button-customer-page"> Elimina Account</button>
+         	<button id="changerole" class="button-customer-page">Cambia Ruolo</button>
           </div>
            
         </div>
