@@ -139,6 +139,8 @@ public class CarrelloDAO {
 			else
 				carrello.setIdCarrello(id);
 		}
+		
+		carrello.setUtente(utente);
 
 		rs.close();
 		pstmt.close();

@@ -56,7 +56,7 @@
 	  		
 	        var data = google.visualization.arrayToDataTable([
 		        ['', 'Prodotti'],
-		        ['Totale', 817],
+		        ['Totale', num],
 		    ]);
 		
 		      var options = {
@@ -168,7 +168,7 @@
         		System.out.println(stats);
              %>
              
-             <a id="changerole" href="#" style="margin-right:1.5em;">Cambia Ruolo</a><img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
+             <img src="img/user.png"><a id="login-link" href="login"> Il mio profilo</a>
          	
           </div>
      
