@@ -1,2 +1,2 @@
-W3Play
-ecommerce website
+#W3Play
+E-commerce riguardante la vendita di videogiochi e console
